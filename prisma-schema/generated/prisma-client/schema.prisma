@@ -9,19 +9,43 @@ datasource db {
 }
 
 model Account {
-    accountId    String   @id @default(uuid()) @db.VarChar(36)
-    username     String   @db.VarChar(200)
-    firstName    String?  @db.VarChar(200)
-    lastName     String?  @db.VarChar(200)
-    passwordHash String   @db.VarChar(200)
-    passwordSalt String   @db.VarChar(45)
-    role         String   @db.VarChar(45)
-    isDelete     Boolean  @default(false)
-    isActive     Boolean  @default(true)
-    createdAt    DateTime @default(now()) @db.DateTime(0)
-    updatedAt    DateTime @updatedAt @db.DateTime(0)
+    accountId    String        @id @default(uuid()) @db.VarChar(36)
+    username     String        @db.VarChar(200)
+    firstName    String?       @db.VarChar(200)
+    lastName     String?       @db.VarChar(200)
+    passwordHash String        @db.VarChar(200)
+    passwordSalt String        @db.VarChar(45)
+    role         String        @db.VarChar(45)
+    isDelete     Boolean       @default(false)
+    isActive     Boolean       @default(true)
+    createdAt    DateTime      @default(now()) @db.DateTime(0)
+    updatedAt    DateTime      @updatedAt @db.DateTime(0)
+    Post         Post[]
+    PostHistory  PostHistory[]
 }
 
-model Activity {
-    activityId String @id @default(uuid()) @db.VarChar(36)
+model Post {
+    postId      String        @id @default(uuid()) @db.VarChar(36)
+    accountId   String?       @db.VarChar(36)
+    name        String        @db.VarChar(200)
+    detail      String?       @db.VarChar(2000)
+    point       Int?
+    isDelete    Boolean       @default(false)
+    isActive    Boolean       @default(true)
+    createdAt   DateTime      @default(now()) @db.DateTime(0)
+    updatedAt   DateTime      @updatedAt @db.DateTime(0)
+    PostHistory PostHistory[]
+    Account     Account?      @relation(fields: [accountId], references: [accountId])
+}
+
+model PostHistory {
+    postHistoryId String   @id @default(uuid()) @db.VarChar(36)
+    accountId     String?  @db.VarChar(36)
+    postId        String?  @db.VarChar(36)
+    isCancel      Boolean  @default(false)
+    isActive      Boolean  @default(true)
+    createdAt     DateTime @default(now()) @db.DateTime(0)
+    updatedAt     DateTime @updatedAt @db.DateTime(0)
+    Account       Account? @relation(fields: [accountId], references: [accountId])
+    Post          Post?    @relation(fields: [postId], references: [postId])
 }

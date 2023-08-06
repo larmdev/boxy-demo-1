@@ -119,8 +119,26 @@ exports.Prisma.AccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ActivityScalarFieldEnum = {
-  activityId: 'activityId'
+exports.Prisma.PostScalarFieldEnum = {
+  postId: 'postId',
+  accountId: 'accountId',
+  name: 'name',
+  detail: 'detail',
+  point: 'point',
+  isDelete: 'isDelete',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PostHistoryScalarFieldEnum = {
+  postHistoryId: 'postHistoryId',
+  accountId: 'accountId',
+  postId: 'postId',
+  isCancel: 'isCancel',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -136,7 +154,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Account: 'Account',
-  Activity: 'Activity'
+  Post: 'Post',
+  PostHistory: 'PostHistory'
 };
 
 /**

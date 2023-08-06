@@ -14,7 +14,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 export type AccountPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
   name: "Account"
-  objects: {}
+  objects: {
+    Post: PostPayload<ExtArgs>[]
+    PostHistory: PostHistoryPayload<ExtArgs>[]
+  }
   scalars: $Extensions.GetResult<{
     accountId: string
     username: string
@@ -36,20 +39,54 @@ export type AccountPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
  * 
  */
 export type Account = runtime.Types.DefaultSelection<AccountPayload>
-export type ActivityPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-  name: "Activity"
-  objects: {}
+export type PostPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Post"
+  objects: {
+    PostHistory: PostHistoryPayload<ExtArgs>[]
+    Account: AccountPayload<ExtArgs> | null
+  }
   scalars: $Extensions.GetResult<{
-    activityId: string
-  }, ExtArgs["result"]["activity"]>
+    postId: string
+    accountId: string | null
+    name: string
+    detail: string | null
+    point: number | null
+    isDelete: boolean
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+  }, ExtArgs["result"]["post"]>
   composites: {}
 }
 
 /**
- * Model Activity
+ * Model Post
  * 
  */
-export type Activity = runtime.Types.DefaultSelection<ActivityPayload>
+export type Post = runtime.Types.DefaultSelection<PostPayload>
+export type PostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "PostHistory"
+  objects: {
+    Account: AccountPayload<ExtArgs> | null
+    Post: PostPayload<ExtArgs> | null
+  }
+  scalars: $Extensions.GetResult<{
+    postHistoryId: string
+    accountId: string | null
+    postId: string | null
+    isCancel: boolean
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+  }, ExtArgs["result"]["postHistory"]>
+  composites: {}
+}
+
+/**
+ * Model PostHistory
+ * 
+ */
+export type PostHistory = runtime.Types.DefaultSelection<PostHistoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -184,14 +221,24 @@ export class PrismaClient<
   get account(): Prisma.AccountDelegate<ExtArgs>;
 
   /**
-   * `prisma.activity`: Exposes CRUD operations for the **Activity** model.
+   * `prisma.post`: Exposes CRUD operations for the **Post** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Activities
-    * const activities = await prisma.activity.findMany()
+    * // Fetch zero or more Posts
+    * const posts = await prisma.post.findMany()
     * ```
     */
-  get activity(): Prisma.ActivityDelegate<ExtArgs>;
+  get post(): Prisma.PostDelegate<ExtArgs>;
+
+  /**
+   * `prisma.postHistory`: Exposes CRUD operations for the **PostHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostHistories
+    * const postHistories = await prisma.postHistory.findMany()
+    * ```
+    */
+  get postHistory(): Prisma.PostHistoryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -676,7 +723,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Account: 'Account',
-    Activity: 'Activity'
+    Post: 'Post',
+    PostHistory: 'PostHistory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -693,7 +741,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'activity'
+      modelProps: 'account' | 'post' | 'postHistory'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -763,69 +811,135 @@ export namespace Prisma {
           }
         }
       }
-      Activity: {
-        payload: ActivityPayload<ExtArgs>
-        fields: Prisma.ActivityFieldRefs
+      Post: {
+        payload: PostPayload<ExtArgs>
+        fields: Prisma.PostFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ActivityFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload> | null
+            args: Prisma.PostFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ActivityFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           findFirst: {
-            args: Prisma.ActivityFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload> | null
+            args: Prisma.PostFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ActivityFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           findMany: {
-            args: Prisma.ActivityFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>[]
+            args: Prisma.PostFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>[]
           }
           create: {
-            args: Prisma.ActivityCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           createMany: {
-            args: Prisma.ActivityCreateManyArgs<ExtArgs>,
+            args: Prisma.PostCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.ActivityDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           update: {
-            args: Prisma.ActivityUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           deleteMany: {
-            args: Prisma.ActivityDeleteManyArgs<ExtArgs>,
+            args: Prisma.PostDeleteManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.ActivityUpdateManyArgs<ExtArgs>,
+            args: Prisma.PostUpdateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.ActivityUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ActivityPayload>
+            args: Prisma.PostUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostPayload>
           }
           aggregate: {
-            args: Prisma.ActivityAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateActivity>
+            args: Prisma.PostAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregatePost>
           }
           groupBy: {
-            args: Prisma.ActivityGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<ActivityGroupByOutputType>[]
+            args: Prisma.PostGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<PostGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ActivityCountArgs<ExtArgs>,
-            result: $Utils.Optional<ActivityCountAggregateOutputType> | number
+            args: Prisma.PostCountArgs<ExtArgs>,
+            result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostHistory: {
+        payload: PostHistoryPayload<ExtArgs>
+        fields: Prisma.PostHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostHistoryFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostHistoryFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.PostHistoryFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostHistoryFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.PostHistoryFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.PostHistoryCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.PostHistoryCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.PostHistoryDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          update: {
+            args: Prisma.PostHistoryUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostHistoryDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostHistoryUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.PostHistoryUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<PostHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.PostHistoryAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregatePostHistory>
+          }
+          groupBy: {
+            args: Prisma.PostHistoryGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<PostHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostHistoryCountArgs<ExtArgs>,
+            result: $Utils.Optional<PostHistoryCountAggregateOutputType> | number
           }
         }
       }
@@ -967,6 +1081,85 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type AccountCountOutputType
+   */
+
+
+  export type AccountCountOutputType = {
+    Post: number
+    PostHistory: number
+  }
+
+  export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    Post?: boolean | AccountCountOutputTypeCountPostArgs
+    PostHistory?: boolean | AccountCountOutputTypeCountPostHistoryArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountCountOutputType
+     */
+    select?: AccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountPostArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountPostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: PostHistoryWhereInput
+  }
+
+
+
+  /**
+   * Count Type PostCountOutputType
+   */
+
+
+  export type PostCountOutputType = {
+    PostHistory: number
+  }
+
+  export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    PostHistory?: boolean | PostCountOutputTypeCountPostHistoryArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostCountOutputType
+     */
+    select?: PostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountPostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: PostHistoryWhereInput
+  }
 
 
 
@@ -1188,6 +1381,9 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Post?: boolean | Account$PostArgs<ExtArgs>
+    PostHistory?: boolean | Account$PostHistoryArgs<ExtArgs>
+    _count?: boolean | AccountCountOutputTypeArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectScalar = {
@@ -1202,6 +1398,12 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+  }
+
+  export type AccountInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    Post?: boolean | Account$PostArgs<ExtArgs>
+    PostHistory?: boolean | Account$PostHistoryArgs<ExtArgs>
+    _count?: boolean | AccountCountOutputTypeArgs<ExtArgs>
   }
 
 
@@ -1577,6 +1779,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    Post<T extends Account$PostArgs<ExtArgs> = {}>(args?: Subset<T, Account$PostArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<PostPayload<ExtArgs>, T, 'findMany'>| Null>;
+
+    PostHistory<T extends Account$PostHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Account$PostHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -1632,6 +1837,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * Filter, which Account to fetch.
      */
     where: AccountWhereUniqueInput
@@ -1647,6 +1856,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * Filter, which Account to fetch.
      */
     where: AccountWhereUniqueInput
@@ -1661,6 +1874,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Account
      */
     select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
     /**
      * Filter, which Account to fetch.
      */
@@ -1707,6 +1924,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * Filter, which Account to fetch.
      */
     where?: AccountWhereInput
@@ -1752,6 +1973,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * Filter, which Accounts to fetch.
      */
     where?: AccountWhereInput
@@ -1792,6 +2017,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * The data needed to create a Account.
      */
     data: XOR<AccountCreateInput, AccountUncheckedCreateInput>
@@ -1818,6 +2047,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Account
      */
     select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
     /**
      * The data needed to update a Account.
      */
@@ -1853,6 +2086,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * The filter to search for the Account to update in case it exists.
      */
     where: AccountWhereUniqueInput
@@ -1876,6 +2113,10 @@ export namespace Prisma {
      */
     select?: AccountSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
      * Filter which Account to delete.
      */
     where: AccountWhereUniqueInput
@@ -1894,6 +2135,48 @@ export namespace Prisma {
 
 
   /**
+   * Account.Post
+   */
+  export type Account$PostArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+
+  /**
+   * Account.PostHistory
+   */
+  export type Account$PostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    where?: PostHistoryWhereInput
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    cursor?: PostHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostHistoryScalarFieldEnum | PostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
    * Account without action
    */
   export type AccountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -1901,300 +2184,419 @@ export namespace Prisma {
      * Select specific fields to fetch from the Account
      */
     select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
   }
 
 
 
   /**
-   * Model Activity
+   * Model Post
    */
 
 
-  export type AggregateActivity = {
-    _count: ActivityCountAggregateOutputType | null
-    _min: ActivityMinAggregateOutputType | null
-    _max: ActivityMaxAggregateOutputType | null
+  export type AggregatePost = {
+    _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
+    _min: PostMinAggregateOutputType | null
+    _max: PostMaxAggregateOutputType | null
   }
 
-  export type ActivityMinAggregateOutputType = {
-    activityId: string | null
+  export type PostAvgAggregateOutputType = {
+    point: number | null
   }
 
-  export type ActivityMaxAggregateOutputType = {
-    activityId: string | null
+  export type PostSumAggregateOutputType = {
+    point: number | null
   }
 
-  export type ActivityCountAggregateOutputType = {
-    activityId: number
+  export type PostMinAggregateOutputType = {
+    postId: string | null
+    accountId: string | null
+    name: string | null
+    detail: string | null
+    point: number | null
+    isDelete: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostMaxAggregateOutputType = {
+    postId: string | null
+    accountId: string | null
+    name: string | null
+    detail: string | null
+    point: number | null
+    isDelete: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostCountAggregateOutputType = {
+    postId: number
+    accountId: number
+    name: number
+    detail: number
+    point: number
+    isDelete: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type ActivityMinAggregateInputType = {
-    activityId?: true
+  export type PostAvgAggregateInputType = {
+    point?: true
   }
 
-  export type ActivityMaxAggregateInputType = {
-    activityId?: true
+  export type PostSumAggregateInputType = {
+    point?: true
   }
 
-  export type ActivityCountAggregateInputType = {
-    activityId?: true
+  export type PostMinAggregateInputType = {
+    postId?: true
+    accountId?: true
+    name?: true
+    detail?: true
+    point?: true
+    isDelete?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostMaxAggregateInputType = {
+    postId?: true
+    accountId?: true
+    name?: true
+    detail?: true
+    point?: true
+    isDelete?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostCountAggregateInputType = {
+    postId?: true
+    accountId?: true
+    name?: true
+    detail?: true
+    point?: true
+    isDelete?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type ActivityAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Activity to aggregate.
+     * Filter which Post to aggregate.
      */
-    where?: ActivityWhereInput
+    where?: PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Activities to fetch.
+     * Determine the order of Posts to fetch.
      */
-    orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ActivityWhereUniqueInput
+    cursor?: PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Activities from the position of the cursor.
+     * Take `±n` Posts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Activities.
+     * Skip the first `n` Posts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Activities
+     * Count returned Posts
     **/
-    _count?: true | ActivityCountAggregateInputType
+    _count?: true | PostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ActivityMinAggregateInputType
+    _min?: PostMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ActivityMaxAggregateInputType
+    _max?: PostMaxAggregateInputType
   }
 
-  export type GetActivityAggregateType<T extends ActivityAggregateArgs> = {
-        [P in keyof T & keyof AggregateActivity]: P extends '_count' | 'count'
+  export type GetPostAggregateType<T extends PostAggregateArgs> = {
+        [P in keyof T & keyof AggregatePost]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateActivity[P]>
-      : GetScalarType<T[P], AggregateActivity[P]>
+        : GetScalarType<T[P], AggregatePost[P]>
+      : GetScalarType<T[P], AggregatePost[P]>
   }
 
 
 
 
-  export type ActivityGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: ActivityWhereInput
-    orderBy?: ActivityOrderByWithAggregationInput | ActivityOrderByWithAggregationInput[]
-    by: ActivityScalarFieldEnum[] | ActivityScalarFieldEnum
-    having?: ActivityScalarWhereWithAggregatesInput
+  export type PostGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithAggregationInput | PostOrderByWithAggregationInput[]
+    by: PostScalarFieldEnum[] | PostScalarFieldEnum
+    having?: PostScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ActivityCountAggregateInputType | true
-    _min?: ActivityMinAggregateInputType
-    _max?: ActivityMaxAggregateInputType
+    _count?: PostCountAggregateInputType | true
+    _avg?: PostAvgAggregateInputType
+    _sum?: PostSumAggregateInputType
+    _min?: PostMinAggregateInputType
+    _max?: PostMaxAggregateInputType
   }
 
 
-  export type ActivityGroupByOutputType = {
-    activityId: string
-    _count: ActivityCountAggregateOutputType | null
-    _min: ActivityMinAggregateOutputType | null
-    _max: ActivityMaxAggregateOutputType | null
+  export type PostGroupByOutputType = {
+    postId: string
+    accountId: string | null
+    name: string
+    detail: string | null
+    point: number | null
+    isDelete: boolean
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
+    _min: PostMinAggregateOutputType | null
+    _max: PostMaxAggregateOutputType | null
   }
 
-  type GetActivityGroupByPayload<T extends ActivityGroupByArgs> = Prisma.PrismaPromise<
+  type GetPostGroupByPayload<T extends PostGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ActivityGroupByOutputType, T['by']> &
+      PickEnumerable<PostGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ActivityGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PostGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ActivityGroupByOutputType[P]>
-            : GetScalarType<T[P], ActivityGroupByOutputType[P]>
+              : GetScalarType<T[P], PostGroupByOutputType[P]>
+            : GetScalarType<T[P], PostGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ActivitySelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    activityId?: boolean
-  }, ExtArgs["result"]["activity"]>
+  export type PostSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    accountId?: boolean
+    name?: boolean
+    detail?: boolean
+    point?: boolean
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    PostHistory?: boolean | Post$PostHistoryArgs<ExtArgs>
+    Account?: boolean | Post$AccountArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["post"]>
 
-  export type ActivitySelectScalar = {
-    activityId?: boolean
+  export type PostSelectScalar = {
+    postId?: boolean
+    accountId?: boolean
+    name?: boolean
+    detail?: boolean
+    point?: boolean
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PostInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    PostHistory?: boolean | Post$PostHistoryArgs<ExtArgs>
+    Account?: boolean | Post$AccountArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeArgs<ExtArgs>
   }
 
 
-  type ActivityGetPayload<S extends boolean | null | undefined | ActivityArgs> = $Types.GetResult<ActivityPayload, S>
+  type PostGetPayload<S extends boolean | null | undefined | PostArgs> = $Types.GetResult<PostPayload, S>
 
-  type ActivityCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
-    Omit<ActivityFindManyArgs, 'select' | 'include'> & {
-      select?: ActivityCountAggregateInputType | true
+  type PostCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<PostFindManyArgs, 'select' | 'include'> & {
+      select?: PostCountAggregateInputType | true
     }
 
-  export interface ActivityDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Activity'], meta: { name: 'Activity' } }
+  export interface PostDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Post'], meta: { name: 'Post' } }
     /**
-     * Find zero or one Activity that matches the filter.
-     * @param {ActivityFindUniqueArgs} args - Arguments to find a Activity
+     * Find zero or one Post that matches the filter.
+     * @param {PostFindUniqueArgs} args - Arguments to find a Post
      * @example
-     * // Get one Activity
-     * const activity = await prisma.activity.findUnique({
+     * // Get one Post
+     * const post = await prisma.post.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ActivityFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityFindUniqueArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+    findUnique<T extends PostFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, PostFindUniqueArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Activity that matches the filter or throw an error  with `error.code='P2025'` 
+     * Find one Post that matches the filter or throw an error  with `error.code='P2025'` 
      *     if no matches were found.
-     * @param {ActivityFindUniqueOrThrowArgs} args - Arguments to find a Activity
+     * @param {PostFindUniqueOrThrowArgs} args - Arguments to find a Post
      * @example
-     * // Get one Activity
-     * const activity = await prisma.activity.findUniqueOrThrow({
+     * // Get one Post
+     * const post = await prisma.post.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends ActivityFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+    findUniqueOrThrow<T extends PostFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
-     * Find the first Activity that matches the filter.
+     * Find the first Post that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityFindFirstArgs} args - Arguments to find a Activity
+     * @param {PostFindFirstArgs} args - Arguments to find a Post
      * @example
-     * // Get one Activity
-     * const activity = await prisma.activity.findFirst({
+     * // Get one Post
+     * const post = await prisma.post.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ActivityFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityFindFirstArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+    findFirst<T extends PostFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostFindFirstArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
-     * Find the first Activity that matches the filter or
+     * Find the first Post that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityFindFirstOrThrowArgs} args - Arguments to find a Activity
+     * @param {PostFindFirstOrThrowArgs} args - Arguments to find a Post
      * @example
-     * // Get one Activity
-     * const activity = await prisma.activity.findFirstOrThrow({
+     * // Get one Post
+     * const post = await prisma.post.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends ActivityFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+    findFirstOrThrow<T extends PostFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
-     * Find zero or more Activities that matches the filter.
+     * Find zero or more Posts that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {PostFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Activities
-     * const activities = await prisma.activity.findMany()
+     * // Get all Posts
+     * const posts = await prisma.post.findMany()
      * 
-     * // Get first 10 Activities
-     * const activities = await prisma.activity.findMany({ take: 10 })
+     * // Get first 10 Posts
+     * const posts = await prisma.post.findMany({ take: 10 })
      * 
-     * // Only select the `activityId`
-     * const activityWithActivityIdOnly = await prisma.activity.findMany({ select: { activityId: true } })
+     * // Only select the `postId`
+     * const postWithPostIdOnly = await prisma.post.findMany({ select: { postId: true } })
      * 
     **/
-    findMany<T extends ActivityFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'findMany'>>
+    findMany<T extends PostFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<PostPayload<ExtArgs>, T, 'findMany'>>
 
     /**
-     * Create a Activity.
-     * @param {ActivityCreateArgs} args - Arguments to create a Activity.
+     * Create a Post.
+     * @param {PostCreateArgs} args - Arguments to create a Post.
      * @example
-     * // Create one Activity
-     * const Activity = await prisma.activity.create({
+     * // Create one Post
+     * const Post = await prisma.post.create({
      *   data: {
-     *     // ... data to create a Activity
+     *     // ... data to create a Post
      *   }
      * })
      * 
     **/
-    create<T extends ActivityCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityCreateArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+    create<T extends PostCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, PostCreateArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
-     * Create many Activities.
-     *     @param {ActivityCreateManyArgs} args - Arguments to create many Activities.
+     * Create many Posts.
+     *     @param {PostCreateManyArgs} args - Arguments to create many Posts.
      *     @example
-     *     // Create many Activities
-     *     const activity = await prisma.activity.createMany({
+     *     // Create many Posts
+     *     const post = await prisma.post.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ActivityCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityCreateManyArgs<ExtArgs>>
+    createMany<T extends PostCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Activity.
-     * @param {ActivityDeleteArgs} args - Arguments to delete one Activity.
+     * Delete a Post.
+     * @param {PostDeleteArgs} args - Arguments to delete one Post.
      * @example
-     * // Delete one Activity
-     * const Activity = await prisma.activity.delete({
+     * // Delete one Post
+     * const Post = await prisma.post.delete({
      *   where: {
-     *     // ... filter to delete one Activity
+     *     // ... filter to delete one Post
      *   }
      * })
      * 
     **/
-    delete<T extends ActivityDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityDeleteArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+    delete<T extends PostDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, PostDeleteArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
-     * Update one Activity.
-     * @param {ActivityUpdateArgs} args - Arguments to update one Activity.
+     * Update one Post.
+     * @param {PostUpdateArgs} args - Arguments to update one Post.
      * @example
-     * // Update one Activity
-     * const activity = await prisma.activity.update({
+     * // Update one Post
+     * const post = await prisma.post.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2204,34 +2606,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ActivityUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityUpdateArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+    update<T extends PostUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, PostUpdateArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
-     * Delete zero or more Activities.
-     * @param {ActivityDeleteManyArgs} args - Arguments to filter Activities to delete.
+     * Delete zero or more Posts.
+     * @param {PostDeleteManyArgs} args - Arguments to filter Posts to delete.
      * @example
-     * // Delete a few Activities
-     * const { count } = await prisma.activity.deleteMany({
+     * // Delete a few Posts
+     * const { count } = await prisma.post.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ActivityDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ActivityDeleteManyArgs<ExtArgs>>
+    deleteMany<T extends PostDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Activities.
+     * Update zero or more Posts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PostUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Activities
-     * const activity = await prisma.activity.updateMany({
+     * // Update many Posts
+     * const post = await prisma.post.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2241,59 +2643,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ActivityUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityUpdateManyArgs<ExtArgs>>
+    updateMany<T extends PostUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, PostUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Activity.
-     * @param {ActivityUpsertArgs} args - Arguments to update or create a Activity.
+     * Create or update one Post.
+     * @param {PostUpsertArgs} args - Arguments to update or create a Post.
      * @example
-     * // Update or create a Activity
-     * const activity = await prisma.activity.upsert({
+     * // Update or create a Post
+     * const post = await prisma.post.upsert({
      *   create: {
-     *     // ... data to create a Activity
+     *     // ... data to create a Post
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Activity we want to update
+     *     // ... the filter for the Post we want to update
      *   }
      * })
     **/
-    upsert<T extends ActivityUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, ActivityUpsertArgs<ExtArgs>>
-    ): Prisma__ActivityClient<$Types.GetResult<ActivityPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+    upsert<T extends PostUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, PostUpsertArgs<ExtArgs>>
+    ): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
-     * Count the number of Activities.
+     * Count the number of Posts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityCountArgs} args - Arguments to filter Activities to count.
+     * @param {PostCountArgs} args - Arguments to filter Posts to count.
      * @example
-     * // Count the number of Activities
-     * const count = await prisma.activity.count({
+     * // Count the number of Posts
+     * const count = await prisma.post.count({
      *   where: {
-     *     // ... the filter for the Activities we want to count
+     *     // ... the filter for the Posts we want to count
      *   }
      * })
     **/
-    count<T extends ActivityCountArgs>(
-      args?: Subset<T, ActivityCountArgs>,
+    count<T extends PostCountArgs>(
+      args?: Subset<T, PostCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ActivityCountAggregateOutputType>
+          : GetScalarType<T['select'], PostCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Activity.
+     * Allows you to perform aggregations operations on a Post.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2313,13 +2715,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ActivityAggregateArgs>(args: Subset<T, ActivityAggregateArgs>): Prisma.PrismaPromise<GetActivityAggregateType<T>>
+    aggregate<T extends PostAggregateArgs>(args: Subset<T, PostAggregateArgs>): Prisma.PrismaPromise<GetPostAggregateType<T>>
 
     /**
-     * Group by Activity.
+     * Group by Post.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ActivityGroupByArgs} args - Group by arguments.
+     * @param {PostGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2334,14 +2736,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ActivityGroupByArgs,
+      T extends PostGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ActivityGroupByArgs['orderBy'] }
-        : { orderBy?: ActivityGroupByArgs['orderBy'] },
+        ? { orderBy: PostGroupByArgs['orderBy'] }
+        : { orderBy?: PostGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2390,20 +2792,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Activity model
+   * Fields of the Post model
    */
-  readonly fields: ActivityFieldRefs;
+  readonly fields: PostFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Activity.
+   * The delegate class that acts as a "Promise-like" for Post.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ActivityClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+  export class Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -2418,6 +2820,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    PostHistory<T extends Post$PostHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Post$PostHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findMany'>| Null>;
+
+    Account<T extends Post$AccountArgs<ExtArgs> = {}>(args?: Subset<T, Post$AccountArgs<ExtArgs>>): Prisma__AccountClient<$Types.GetResult<AccountPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -2445,293 +2850,1351 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Activity model
+   * Fields of the Post model
    */ 
-  interface ActivityFieldRefs {
-    readonly activityId: FieldRef<"Activity", 'String'>
+  interface PostFieldRefs {
+    readonly postId: FieldRef<"Post", 'String'>
+    readonly accountId: FieldRef<"Post", 'String'>
+    readonly name: FieldRef<"Post", 'String'>
+    readonly detail: FieldRef<"Post", 'String'>
+    readonly point: FieldRef<"Post", 'Int'>
+    readonly isDelete: FieldRef<"Post", 'Boolean'>
+    readonly isActive: FieldRef<"Post", 'Boolean'>
+    readonly createdAt: FieldRef<"Post", 'DateTime'>
+    readonly updatedAt: FieldRef<"Post", 'DateTime'>
   }
     
 
   // Custom InputTypes
 
   /**
-   * Activity findUnique
+   * Post findUnique
    */
-  export type ActivityFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter, which Activity to fetch.
+     * Choose, which related nodes to fetch as well.
      */
-    where: ActivityWhereUniqueInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where: PostWhereUniqueInput
   }
 
 
   /**
-   * Activity findUniqueOrThrow
+   * Post findUniqueOrThrow
    */
-  export type ActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter, which Activity to fetch.
+     * Choose, which related nodes to fetch as well.
      */
-    where: ActivityWhereUniqueInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where: PostWhereUniqueInput
   }
 
 
   /**
-   * Activity findFirst
+   * Post findFirst
    */
-  export type ActivityFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter, which Activity to fetch.
+     * Choose, which related nodes to fetch as well.
      */
-    where?: ActivityWhereInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where?: PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Activities to fetch.
+     * Determine the order of Posts to fetch.
      */
-    orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Activities.
+     * Sets the position for searching for Posts.
      */
-    cursor?: ActivityWhereUniqueInput
+    cursor?: PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Activities from the position of the cursor.
+     * Take `±n` Posts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Activities.
+     * Skip the first `n` Posts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Activities.
+     * Filter by unique combinations of Posts.
      */
-    distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
   }
 
 
   /**
-   * Activity findFirstOrThrow
+   * Post findFirstOrThrow
    */
-  export type ActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter, which Activity to fetch.
+     * Choose, which related nodes to fetch as well.
      */
-    where?: ActivityWhereInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where?: PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Activities to fetch.
+     * Determine the order of Posts to fetch.
      */
-    orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Activities.
+     * Sets the position for searching for Posts.
      */
-    cursor?: ActivityWhereUniqueInput
+    cursor?: PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Activities from the position of the cursor.
+     * Take `±n` Posts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Activities.
+     * Skip the first `n` Posts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Activities.
+     * Filter by unique combinations of Posts.
      */
-    distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
   }
 
 
   /**
-   * Activity findMany
+   * Post findMany
    */
-  export type ActivityFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter, which Activities to fetch.
+     * Choose, which related nodes to fetch as well.
      */
-    where?: ActivityWhereInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Posts to fetch.
+     */
+    where?: PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Activities to fetch.
+     * Determine the order of Posts to fetch.
      */
-    orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Activities.
+     * Sets the position for listing Posts.
      */
-    cursor?: ActivityWhereUniqueInput
+    cursor?: PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Activities from the position of the cursor.
+     * Take `±n` Posts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Activities.
+     * Skip the first `n` Posts.
      */
     skip?: number
-    distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
   }
 
 
   /**
-   * Activity create
+   * Post create
    */
-  export type ActivityCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * The data needed to create a Activity.
+     * Choose, which related nodes to fetch as well.
      */
-    data?: XOR<ActivityCreateInput, ActivityUncheckedCreateInput>
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Post.
+     */
+    data: XOR<PostCreateInput, PostUncheckedCreateInput>
   }
 
 
   /**
-   * Activity createMany
+   * Post createMany
    */
-  export type ActivityCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Activities.
+     * The data used to create many Posts.
      */
-    data: ActivityCreateManyInput | ActivityCreateManyInput[]
+    data: PostCreateManyInput | PostCreateManyInput[]
     skipDuplicates?: boolean
   }
 
 
   /**
-   * Activity update
+   * Post update
    */
-  export type ActivityUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * The data needed to update a Activity.
+     * Choose, which related nodes to fetch as well.
      */
-    data: XOR<ActivityUpdateInput, ActivityUncheckedUpdateInput>
+    include?: PostInclude<ExtArgs> | null
     /**
-     * Choose, which Activity to update.
+     * The data needed to update a Post.
      */
-    where: ActivityWhereUniqueInput
+    data: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    /**
+     * Choose, which Post to update.
+     */
+    where: PostWhereUniqueInput
   }
 
 
   /**
-   * Activity updateMany
+   * Post updateMany
    */
-  export type ActivityUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Activities.
+     * The data used to update Posts.
      */
-    data: XOR<ActivityUpdateManyMutationInput, ActivityUncheckedUpdateManyInput>
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
     /**
-     * Filter which Activities to update
+     * Filter which Posts to update
      */
-    where?: ActivityWhereInput
+    where?: PostWhereInput
   }
 
 
   /**
-   * Activity upsert
+   * Post upsert
    */
-  export type ActivityUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * The filter to search for the Activity to update in case it exists.
+     * Choose, which related nodes to fetch as well.
      */
-    where: ActivityWhereUniqueInput
+    include?: PostInclude<ExtArgs> | null
     /**
-     * In case the Activity found by the `where` argument doesn't exist, create a new Activity with this data.
+     * The filter to search for the Post to update in case it exists.
      */
-    create: XOR<ActivityCreateInput, ActivityUncheckedCreateInput>
+    where: PostWhereUniqueInput
     /**
-     * In case the Activity was found with the provided `where` argument, update it with this data.
+     * In case the Post found by the `where` argument doesn't exist, create a new Post with this data.
      */
-    update: XOR<ActivityUpdateInput, ActivityUncheckedUpdateInput>
+    create: XOR<PostCreateInput, PostUncheckedCreateInput>
+    /**
+     * In case the Post was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostUpdateInput, PostUncheckedUpdateInput>
   }
 
 
   /**
-   * Activity delete
+   * Post delete
    */
-  export type ActivityDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the Post
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Filter which Activity to delete.
+     * Choose, which related nodes to fetch as well.
      */
-    where: ActivityWhereUniqueInput
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter which Post to delete.
+     */
+    where: PostWhereUniqueInput
   }
 
 
   /**
-   * Activity deleteMany
+   * Post deleteMany
    */
-  export type ActivityDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type PostDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Activities to delete
+     * Filter which Posts to delete
      */
-    where?: ActivityWhereInput
+    where?: PostWhereInput
   }
 
 
   /**
-   * Activity without action
+   * Post.PostHistory
    */
-  export type ActivityArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type Post$PostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Activity
+     * Select specific fields to fetch from the PostHistory
      */
-    select?: ActivitySelect<ExtArgs> | null
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    where?: PostHistoryWhereInput
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    cursor?: PostHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostHistoryScalarFieldEnum | PostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * Post.Account
+   */
+  export type Post$AccountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+
+  /**
+   * Post without action
+   */
+  export type PostArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model PostHistory
+   */
+
+
+  export type AggregatePostHistory = {
+    _count: PostHistoryCountAggregateOutputType | null
+    _min: PostHistoryMinAggregateOutputType | null
+    _max: PostHistoryMaxAggregateOutputType | null
+  }
+
+  export type PostHistoryMinAggregateOutputType = {
+    postHistoryId: string | null
+    accountId: string | null
+    postId: string | null
+    isCancel: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostHistoryMaxAggregateOutputType = {
+    postHistoryId: string | null
+    accountId: string | null
+    postId: string | null
+    isCancel: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostHistoryCountAggregateOutputType = {
+    postHistoryId: number
+    accountId: number
+    postId: number
+    isCancel: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PostHistoryMinAggregateInputType = {
+    postHistoryId?: true
+    accountId?: true
+    postId?: true
+    isCancel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostHistoryMaxAggregateInputType = {
+    postHistoryId?: true
+    accountId?: true
+    postId?: true
+    isCancel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostHistoryCountAggregateInputType = {
+    postHistoryId?: true
+    accountId?: true
+    postId?: true
+    isCancel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PostHistoryAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostHistory to aggregate.
+     */
+    where?: PostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHistories to fetch.
+     */
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostHistories
+    **/
+    _count?: true | PostHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostHistoryMaxAggregateInputType
+  }
+
+  export type GetPostHistoryAggregateType<T extends PostHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostHistory[P]>
+      : GetScalarType<T[P], AggregatePostHistory[P]>
+  }
+
+
+
+
+  export type PostHistoryGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: PostHistoryWhereInput
+    orderBy?: PostHistoryOrderByWithAggregationInput | PostHistoryOrderByWithAggregationInput[]
+    by: PostHistoryScalarFieldEnum[] | PostHistoryScalarFieldEnum
+    having?: PostHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostHistoryCountAggregateInputType | true
+    _min?: PostHistoryMinAggregateInputType
+    _max?: PostHistoryMaxAggregateInputType
+  }
+
+
+  export type PostHistoryGroupByOutputType = {
+    postHistoryId: string
+    accountId: string | null
+    postId: string | null
+    isCancel: boolean
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PostHistoryCountAggregateOutputType | null
+    _min: PostHistoryMinAggregateOutputType | null
+    _max: PostHistoryMaxAggregateOutputType | null
+  }
+
+  type GetPostHistoryGroupByPayload<T extends PostHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], PostHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostHistorySelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postHistoryId?: boolean
+    accountId?: boolean
+    postId?: boolean
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Account?: boolean | PostHistory$AccountArgs<ExtArgs>
+    Post?: boolean | PostHistory$PostArgs<ExtArgs>
+  }, ExtArgs["result"]["postHistory"]>
+
+  export type PostHistorySelectScalar = {
+    postHistoryId?: boolean
+    accountId?: boolean
+    postId?: boolean
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    Account?: boolean | PostHistory$AccountArgs<ExtArgs>
+    Post?: boolean | PostHistory$PostArgs<ExtArgs>
+  }
+
+
+  type PostHistoryGetPayload<S extends boolean | null | undefined | PostHistoryArgs> = $Types.GetResult<PostHistoryPayload, S>
+
+  type PostHistoryCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<PostHistoryFindManyArgs, 'select' | 'include'> & {
+      select?: PostHistoryCountAggregateInputType | true
+    }
+
+  export interface PostHistoryDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostHistory'], meta: { name: 'PostHistory' } }
+    /**
+     * Find zero or one PostHistory that matches the filter.
+     * @param {PostHistoryFindUniqueArgs} args - Arguments to find a PostHistory
+     * @example
+     * // Get one PostHistory
+     * const postHistory = await prisma.postHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PostHistoryFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryFindUniqueArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one PostHistory that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PostHistoryFindUniqueOrThrowArgs} args - Arguments to find a PostHistory
+     * @example
+     * // Get one PostHistory
+     * const postHistory = await prisma.postHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PostHistoryFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first PostHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryFindFirstArgs} args - Arguments to find a PostHistory
+     * @example
+     * // Get one PostHistory
+     * const postHistory = await prisma.postHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PostHistoryFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryFindFirstArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first PostHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryFindFirstOrThrowArgs} args - Arguments to find a PostHistory
+     * @example
+     * // Get one PostHistory
+     * const postHistory = await prisma.postHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PostHistoryFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more PostHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostHistories
+     * const postHistories = await prisma.postHistory.findMany()
+     * 
+     * // Get first 10 PostHistories
+     * const postHistories = await prisma.postHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `postHistoryId`
+     * const postHistoryWithPostHistoryIdOnly = await prisma.postHistory.findMany({ select: { postHistoryId: true } })
+     * 
+    **/
+    findMany<T extends PostHistoryFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a PostHistory.
+     * @param {PostHistoryCreateArgs} args - Arguments to create a PostHistory.
+     * @example
+     * // Create one PostHistory
+     * const PostHistory = await prisma.postHistory.create({
+     *   data: {
+     *     // ... data to create a PostHistory
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PostHistoryCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryCreateArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many PostHistories.
+     *     @param {PostHistoryCreateManyArgs} args - Arguments to create many PostHistories.
+     *     @example
+     *     // Create many PostHistories
+     *     const postHistory = await prisma.postHistory.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PostHistoryCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PostHistory.
+     * @param {PostHistoryDeleteArgs} args - Arguments to delete one PostHistory.
+     * @example
+     * // Delete one PostHistory
+     * const PostHistory = await prisma.postHistory.delete({
+     *   where: {
+     *     // ... filter to delete one PostHistory
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PostHistoryDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryDeleteArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one PostHistory.
+     * @param {PostHistoryUpdateArgs} args - Arguments to update one PostHistory.
+     * @example
+     * // Update one PostHistory
+     * const postHistory = await prisma.postHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PostHistoryUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryUpdateArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more PostHistories.
+     * @param {PostHistoryDeleteManyArgs} args - Arguments to filter PostHistories to delete.
+     * @example
+     * // Delete a few PostHistories
+     * const { count } = await prisma.postHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PostHistoryDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PostHistoryDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostHistories
+     * const postHistory = await prisma.postHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PostHistoryUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PostHistory.
+     * @param {PostHistoryUpsertArgs} args - Arguments to update or create a PostHistory.
+     * @example
+     * // Update or create a PostHistory
+     * const postHistory = await prisma.postHistory.upsert({
+     *   create: {
+     *     // ... data to create a PostHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostHistory we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PostHistoryUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, PostHistoryUpsertArgs<ExtArgs>>
+    ): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of PostHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryCountArgs} args - Arguments to filter PostHistories to count.
+     * @example
+     * // Count the number of PostHistories
+     * const count = await prisma.postHistory.count({
+     *   where: {
+     *     // ... the filter for the PostHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostHistoryCountArgs>(
+      args?: Subset<T, PostHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostHistoryAggregateArgs>(args: Subset<T, PostHistoryAggregateArgs>): Prisma.PrismaPromise<GetPostHistoryAggregateType<T>>
+
+    /**
+     * Group by PostHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: PostHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostHistory model
+   */
+  readonly fields: PostHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__PostHistoryClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Account<T extends PostHistory$AccountArgs<ExtArgs> = {}>(args?: Subset<T, PostHistory$AccountArgs<ExtArgs>>): Prisma__AccountClient<$Types.GetResult<AccountPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
+
+    Post<T extends PostHistory$PostArgs<ExtArgs> = {}>(args?: Subset<T, PostHistory$PostArgs<ExtArgs>>): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the PostHistory model
+   */ 
+  interface PostHistoryFieldRefs {
+    readonly postHistoryId: FieldRef<"PostHistory", 'String'>
+    readonly accountId: FieldRef<"PostHistory", 'String'>
+    readonly postId: FieldRef<"PostHistory", 'String'>
+    readonly isCancel: FieldRef<"PostHistory", 'Boolean'>
+    readonly isActive: FieldRef<"PostHistory", 'Boolean'>
+    readonly createdAt: FieldRef<"PostHistory", 'DateTime'>
+    readonly updatedAt: FieldRef<"PostHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * PostHistory findUnique
+   */
+  export type PostHistoryFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHistory to fetch.
+     */
+    where: PostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * PostHistory findUniqueOrThrow
+   */
+  export type PostHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHistory to fetch.
+     */
+    where: PostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * PostHistory findFirst
+   */
+  export type PostHistoryFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHistory to fetch.
+     */
+    where?: PostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHistories to fetch.
+     */
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostHistories.
+     */
+    cursor?: PostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostHistories.
+     */
+    distinct?: PostHistoryScalarFieldEnum | PostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * PostHistory findFirstOrThrow
+   */
+  export type PostHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHistory to fetch.
+     */
+    where?: PostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHistories to fetch.
+     */
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostHistories.
+     */
+    cursor?: PostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostHistories.
+     */
+    distinct?: PostHistoryScalarFieldEnum | PostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * PostHistory findMany
+   */
+  export type PostHistoryFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PostHistories to fetch.
+     */
+    where?: PostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostHistories to fetch.
+     */
+    orderBy?: PostHistoryOrderByWithRelationInput | PostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostHistories.
+     */
+    cursor?: PostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostHistories.
+     */
+    skip?: number
+    distinct?: PostHistoryScalarFieldEnum | PostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * PostHistory create
+   */
+  export type PostHistoryCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostHistory.
+     */
+    data: XOR<PostHistoryCreateInput, PostHistoryUncheckedCreateInput>
+  }
+
+
+  /**
+   * PostHistory createMany
+   */
+  export type PostHistoryCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostHistories.
+     */
+    data: PostHistoryCreateManyInput | PostHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * PostHistory update
+   */
+  export type PostHistoryUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostHistory.
+     */
+    data: XOR<PostHistoryUpdateInput, PostHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which PostHistory to update.
+     */
+    where: PostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * PostHistory updateMany
+   */
+  export type PostHistoryUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostHistories.
+     */
+    data: XOR<PostHistoryUpdateManyMutationInput, PostHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which PostHistories to update
+     */
+    where?: PostHistoryWhereInput
+  }
+
+
+  /**
+   * PostHistory upsert
+   */
+  export type PostHistoryUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostHistory to update in case it exists.
+     */
+    where: PostHistoryWhereUniqueInput
+    /**
+     * In case the PostHistory found by the `where` argument doesn't exist, create a new PostHistory with this data.
+     */
+    create: XOR<PostHistoryCreateInput, PostHistoryUncheckedCreateInput>
+    /**
+     * In case the PostHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostHistoryUpdateInput, PostHistoryUncheckedUpdateInput>
+  }
+
+
+  /**
+   * PostHistory delete
+   */
+  export type PostHistoryDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which PostHistory to delete.
+     */
+    where: PostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * PostHistory deleteMany
+   */
+  export type PostHistoryDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostHistories to delete
+     */
+    where?: PostHistoryWhereInput
+  }
+
+
+  /**
+   * PostHistory.Account
+   */
+  export type PostHistory$AccountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+
+  /**
+   * PostHistory.Post
+   */
+  export type PostHistory$PostArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+  }
+
+
+  /**
+   * PostHistory without action
+   */
+  export type PostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistory
+     */
+    select?: PostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PostHistoryInclude<ExtArgs> | null
   }
 
 
@@ -2767,11 +4230,32 @@ export namespace Prisma {
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
 
 
-  export const ActivityScalarFieldEnum: {
-    activityId: 'activityId'
+  export const PostScalarFieldEnum: {
+    postId: 'postId',
+    accountId: 'accountId',
+    name: 'name',
+    detail: 'detail',
+    point: 'point',
+    isDelete: 'isDelete',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
-  export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+  export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+  export const PostHistoryScalarFieldEnum: {
+    postHistoryId: 'postHistoryId',
+    accountId: 'accountId',
+    postId: 'postId',
+    isCancel: 'isCancel',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PostHistoryScalarFieldEnum = (typeof PostHistoryScalarFieldEnum)[keyof typeof PostHistoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2821,6 +4305,13 @@ export namespace Prisma {
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
   /**
    * Deep Input Types
    */
@@ -2841,6 +4332,8 @@ export namespace Prisma {
     isActive?: BoolFilter<"Account"> | boolean
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
+    Post?: PostListRelationFilter
+    PostHistory?: PostHistoryListRelationFilter
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -2855,6 +4348,8 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Post?: PostOrderByRelationAggregateInput
+    PostHistory?: PostHistoryOrderByRelationAggregateInput
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -2872,6 +4367,8 @@ export namespace Prisma {
     isActive?: BoolFilter<"Account"> | boolean
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
+    Post?: PostListRelationFilter
+    PostHistory?: PostHistoryListRelationFilter
   }, "accountId">
 
   export type AccountOrderByWithAggregationInput = {
@@ -2908,36 +4405,152 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
   }
 
-  export type ActivityWhereInput = {
-    AND?: ActivityWhereInput | ActivityWhereInput[]
-    OR?: ActivityWhereInput[]
-    NOT?: ActivityWhereInput | ActivityWhereInput[]
-    activityId?: StringFilter<"Activity"> | string
+  export type PostWhereInput = {
+    AND?: PostWhereInput | PostWhereInput[]
+    OR?: PostWhereInput[]
+    NOT?: PostWhereInput | PostWhereInput[]
+    postId?: StringFilter<"Post"> | string
+    accountId?: StringNullableFilter<"Post"> | string | null
+    name?: StringFilter<"Post"> | string
+    detail?: StringNullableFilter<"Post"> | string | null
+    point?: IntNullableFilter<"Post"> | number | null
+    isDelete?: BoolFilter<"Post"> | boolean
+    isActive?: BoolFilter<"Post"> | boolean
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    PostHistory?: PostHistoryListRelationFilter
+    Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
   }
 
-  export type ActivityOrderByWithRelationInput = {
-    activityId?: SortOrder
+  export type PostOrderByWithRelationInput = {
+    postId?: SortOrder
+    accountId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    detail?: SortOrderInput | SortOrder
+    point?: SortOrderInput | SortOrder
+    isDelete?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    PostHistory?: PostHistoryOrderByRelationAggregateInput
+    Account?: AccountOrderByWithRelationInput
   }
 
-  export type ActivityWhereUniqueInput = Prisma.AtLeast<{
-    activityId?: string
-    AND?: ActivityWhereInput | ActivityWhereInput[]
-    OR?: ActivityWhereInput[]
-    NOT?: ActivityWhereInput | ActivityWhereInput[]
-  }, "activityId">
+  export type PostWhereUniqueInput = Prisma.AtLeast<{
+    postId?: string
+    AND?: PostWhereInput | PostWhereInput[]
+    OR?: PostWhereInput[]
+    NOT?: PostWhereInput | PostWhereInput[]
+    accountId?: StringNullableFilter<"Post"> | string | null
+    name?: StringFilter<"Post"> | string
+    detail?: StringNullableFilter<"Post"> | string | null
+    point?: IntNullableFilter<"Post"> | number | null
+    isDelete?: BoolFilter<"Post"> | boolean
+    isActive?: BoolFilter<"Post"> | boolean
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    PostHistory?: PostHistoryListRelationFilter
+    Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+  }, "postId">
 
-  export type ActivityOrderByWithAggregationInput = {
-    activityId?: SortOrder
-    _count?: ActivityCountOrderByAggregateInput
-    _max?: ActivityMaxOrderByAggregateInput
-    _min?: ActivityMinOrderByAggregateInput
+  export type PostOrderByWithAggregationInput = {
+    postId?: SortOrder
+    accountId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    detail?: SortOrderInput | SortOrder
+    point?: SortOrderInput | SortOrder
+    isDelete?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PostCountOrderByAggregateInput
+    _avg?: PostAvgOrderByAggregateInput
+    _max?: PostMaxOrderByAggregateInput
+    _min?: PostMinOrderByAggregateInput
+    _sum?: PostSumOrderByAggregateInput
   }
 
-  export type ActivityScalarWhereWithAggregatesInput = {
-    AND?: ActivityScalarWhereWithAggregatesInput | ActivityScalarWhereWithAggregatesInput[]
-    OR?: ActivityScalarWhereWithAggregatesInput[]
-    NOT?: ActivityScalarWhereWithAggregatesInput | ActivityScalarWhereWithAggregatesInput[]
-    activityId?: StringWithAggregatesFilter<"Activity"> | string
+  export type PostScalarWhereWithAggregatesInput = {
+    AND?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
+    OR?: PostScalarWhereWithAggregatesInput[]
+    NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
+    postId?: StringWithAggregatesFilter<"Post"> | string
+    accountId?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    name?: StringWithAggregatesFilter<"Post"> | string
+    detail?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    point?: IntNullableWithAggregatesFilter<"Post"> | number | null
+    isDelete?: BoolWithAggregatesFilter<"Post"> | boolean
+    isActive?: BoolWithAggregatesFilter<"Post"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  }
+
+  export type PostHistoryWhereInput = {
+    AND?: PostHistoryWhereInput | PostHistoryWhereInput[]
+    OR?: PostHistoryWhereInput[]
+    NOT?: PostHistoryWhereInput | PostHistoryWhereInput[]
+    postHistoryId?: StringFilter<"PostHistory"> | string
+    accountId?: StringNullableFilter<"PostHistory"> | string | null
+    postId?: StringNullableFilter<"PostHistory"> | string | null
+    isCancel?: BoolFilter<"PostHistory"> | boolean
+    isActive?: BoolFilter<"PostHistory"> | boolean
+    createdAt?: DateTimeFilter<"PostHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+    Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
+  }
+
+  export type PostHistoryOrderByWithRelationInput = {
+    postHistoryId?: SortOrder
+    accountId?: SortOrderInput | SortOrder
+    postId?: SortOrderInput | SortOrder
+    isCancel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    Account?: AccountOrderByWithRelationInput
+    Post?: PostOrderByWithRelationInput
+  }
+
+  export type PostHistoryWhereUniqueInput = Prisma.AtLeast<{
+    postHistoryId?: string
+    AND?: PostHistoryWhereInput | PostHistoryWhereInput[]
+    OR?: PostHistoryWhereInput[]
+    NOT?: PostHistoryWhereInput | PostHistoryWhereInput[]
+    accountId?: StringNullableFilter<"PostHistory"> | string | null
+    postId?: StringNullableFilter<"PostHistory"> | string | null
+    isCancel?: BoolFilter<"PostHistory"> | boolean
+    isActive?: BoolFilter<"PostHistory"> | boolean
+    createdAt?: DateTimeFilter<"PostHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+    Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
+  }, "postHistoryId">
+
+  export type PostHistoryOrderByWithAggregationInput = {
+    postHistoryId?: SortOrder
+    accountId?: SortOrderInput | SortOrder
+    postId?: SortOrderInput | SortOrder
+    isCancel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PostHistoryCountOrderByAggregateInput
+    _max?: PostHistoryMaxOrderByAggregateInput
+    _min?: PostHistoryMinOrderByAggregateInput
+  }
+
+  export type PostHistoryScalarWhereWithAggregatesInput = {
+    AND?: PostHistoryScalarWhereWithAggregatesInput | PostHistoryScalarWhereWithAggregatesInput[]
+    OR?: PostHistoryScalarWhereWithAggregatesInput[]
+    NOT?: PostHistoryScalarWhereWithAggregatesInput | PostHistoryScalarWhereWithAggregatesInput[]
+    postHistoryId?: StringWithAggregatesFilter<"PostHistory"> | string
+    accountId?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
+    postId?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
+    isCancel?: BoolWithAggregatesFilter<"PostHistory"> | boolean
+    isActive?: BoolWithAggregatesFilter<"PostHistory"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
   }
 
   export type AccountCreateInput = {
@@ -2952,6 +4565,8 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Post?: PostCreateNestedManyWithoutAccountInput
+    PostHistory?: PostHistoryCreateNestedManyWithoutAccountInput
   }
 
   export type AccountUncheckedCreateInput = {
@@ -2966,6 +4581,8 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Post?: PostUncheckedCreateNestedManyWithoutAccountInput
+    PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutAccountInput
   }
 
   export type AccountUpdateInput = {
@@ -2980,6 +4597,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Post?: PostUpdateManyWithoutAccountNestedInput
+    PostHistory?: PostHistoryUpdateManyWithoutAccountNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
@@ -2994,6 +4613,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Post?: PostUncheckedUpdateManyWithoutAccountNestedInput
+    PostHistory?: PostHistoryUncheckedUpdateManyWithoutAccountNestedInput
   }
 
   export type AccountCreateManyInput = {
@@ -3038,32 +4659,159 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ActivityCreateInput = {
-    activityId?: string
+  export type PostCreateInput = {
+    postId?: string
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryCreateNestedManyWithoutPostInput
+    Account?: AccountCreateNestedOneWithoutPostInput
   }
 
-  export type ActivityUncheckedCreateInput = {
-    activityId?: string
+  export type PostUncheckedCreateInput = {
+    postId?: string
+    accountId?: string | null
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutPostInput
   }
 
-  export type ActivityUpdateInput = {
-    activityId?: StringFieldUpdateOperationsInput | string
+  export type PostUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUpdateManyWithoutPostNestedInput
+    Account?: AccountUpdateOneWithoutPostNestedInput
   }
 
-  export type ActivityUncheckedUpdateInput = {
-    activityId?: StringFieldUpdateOperationsInput | string
+  export type PostUncheckedUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
   }
 
-  export type ActivityCreateManyInput = {
-    activityId?: string
+  export type PostCreateManyInput = {
+    postId?: string
+    accountId?: string | null
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ActivityUpdateManyMutationInput = {
-    activityId?: StringFieldUpdateOperationsInput | string
+  export type PostUpdateManyMutationInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ActivityUncheckedUpdateManyInput = {
-    activityId?: StringFieldUpdateOperationsInput | string
+  export type PostUncheckedUpdateManyInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryCreateInput = {
+    postHistoryId?: string
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Account?: AccountCreateNestedOneWithoutPostHistoryInput
+    Post?: PostCreateNestedOneWithoutPostHistoryInput
+  }
+
+  export type PostHistoryUncheckedCreateInput = {
+    postHistoryId?: string
+    accountId?: string | null
+    postId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryUpdateInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Account?: AccountUpdateOneWithoutPostHistoryNestedInput
+    Post?: PostUpdateOneWithoutPostHistoryNestedInput
+  }
+
+  export type PostHistoryUncheckedUpdateInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryCreateManyInput = {
+    postHistoryId?: string
+    accountId?: string | null
+    postId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryUpdateManyMutationInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryUncheckedUpdateManyInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3110,9 +4858,29 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type PostListRelationFilter = {
+    every?: PostWhereInput
+    some?: PostWhereInput
+    none?: PostWhereInput
+  }
+
+  export type PostHistoryListRelationFilter = {
+    every?: PostHistoryWhereInput
+    some?: PostHistoryWhereInput
+    none?: PostHistoryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type AccountCountOrderByAggregateInput = {
@@ -3213,16 +4981,143 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type ActivityCountOrderByAggregateInput = {
-    activityId?: SortOrder
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type ActivityMaxOrderByAggregateInput = {
-    activityId?: SortOrder
+  export type AccountNullableRelationFilter = {
+    is?: AccountWhereInput | null
+    isNot?: AccountWhereInput | null
   }
 
-  export type ActivityMinOrderByAggregateInput = {
-    activityId?: SortOrder
+  export type PostCountOrderByAggregateInput = {
+    postId?: SortOrder
+    accountId?: SortOrder
+    name?: SortOrder
+    detail?: SortOrder
+    point?: SortOrder
+    isDelete?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostAvgOrderByAggregateInput = {
+    point?: SortOrder
+  }
+
+  export type PostMaxOrderByAggregateInput = {
+    postId?: SortOrder
+    accountId?: SortOrder
+    name?: SortOrder
+    detail?: SortOrder
+    point?: SortOrder
+    isDelete?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostMinOrderByAggregateInput = {
+    postId?: SortOrder
+    accountId?: SortOrder
+    name?: SortOrder
+    detail?: SortOrder
+    point?: SortOrder
+    isDelete?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostSumOrderByAggregateInput = {
+    point?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type PostNullableRelationFilter = {
+    is?: PostWhereInput | null
+    isNot?: PostWhereInput | null
+  }
+
+  export type PostHistoryCountOrderByAggregateInput = {
+    postHistoryId?: SortOrder
+    accountId?: SortOrder
+    postId?: SortOrder
+    isCancel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostHistoryMaxOrderByAggregateInput = {
+    postHistoryId?: SortOrder
+    accountId?: SortOrder
+    postId?: SortOrder
+    isCancel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostHistoryMinOrderByAggregateInput = {
+    postHistoryId?: SortOrder
+    accountId?: SortOrder
+    postId?: SortOrder
+    isCancel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostCreateNestedManyWithoutAccountInput = {
+    create?: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput> | PostCreateWithoutAccountInput[] | PostUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAccountInput | PostCreateOrConnectWithoutAccountInput[]
+    createMany?: PostCreateManyAccountInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type PostHistoryCreateNestedManyWithoutAccountInput = {
+    create?: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput> | PostHistoryCreateWithoutAccountInput[] | PostHistoryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutAccountInput | PostHistoryCreateOrConnectWithoutAccountInput[]
+    createMany?: PostHistoryCreateManyAccountInputEnvelope
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+  }
+
+  export type PostUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput> | PostCreateWithoutAccountInput[] | PostUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAccountInput | PostCreateOrConnectWithoutAccountInput[]
+    createMany?: PostCreateManyAccountInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type PostHistoryUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput> | PostHistoryCreateWithoutAccountInput[] | PostHistoryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutAccountInput | PostHistoryCreateOrConnectWithoutAccountInput[]
+    createMany?: PostHistoryCreateManyAccountInputEnvelope
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3239,6 +5134,160 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type PostUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput> | PostCreateWithoutAccountInput[] | PostUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAccountInput | PostCreateOrConnectWithoutAccountInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAccountInput | PostUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: PostCreateManyAccountInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAccountInput | PostUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAccountInput | PostUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type PostHistoryUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput> | PostHistoryCreateWithoutAccountInput[] | PostHistoryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutAccountInput | PostHistoryCreateOrConnectWithoutAccountInput[]
+    upsert?: PostHistoryUpsertWithWhereUniqueWithoutAccountInput | PostHistoryUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: PostHistoryCreateManyAccountInputEnvelope
+    set?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    disconnect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    delete?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    update?: PostHistoryUpdateWithWhereUniqueWithoutAccountInput | PostHistoryUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: PostHistoryUpdateManyWithWhereWithoutAccountInput | PostHistoryUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+  }
+
+  export type PostUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput> | PostCreateWithoutAccountInput[] | PostUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAccountInput | PostCreateOrConnectWithoutAccountInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAccountInput | PostUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: PostCreateManyAccountInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAccountInput | PostUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAccountInput | PostUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type PostHistoryUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput> | PostHistoryCreateWithoutAccountInput[] | PostHistoryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutAccountInput | PostHistoryCreateOrConnectWithoutAccountInput[]
+    upsert?: PostHistoryUpsertWithWhereUniqueWithoutAccountInput | PostHistoryUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: PostHistoryCreateManyAccountInputEnvelope
+    set?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    disconnect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    delete?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    update?: PostHistoryUpdateWithWhereUniqueWithoutAccountInput | PostHistoryUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: PostHistoryUpdateManyWithWhereWithoutAccountInput | PostHistoryUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+  }
+
+  export type PostHistoryCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput> | PostHistoryCreateWithoutPostInput[] | PostHistoryUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutPostInput | PostHistoryCreateOrConnectWithoutPostInput[]
+    createMany?: PostHistoryCreateManyPostInputEnvelope
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+  }
+
+  export type AccountCreateNestedOneWithoutPostInput = {
+    create?: XOR<AccountCreateWithoutPostInput, AccountUncheckedCreateWithoutPostInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutPostInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type PostHistoryUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput> | PostHistoryCreateWithoutPostInput[] | PostHistoryUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutPostInput | PostHistoryCreateOrConnectWithoutPostInput[]
+    createMany?: PostHistoryCreateManyPostInputEnvelope
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type PostHistoryUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput> | PostHistoryCreateWithoutPostInput[] | PostHistoryUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutPostInput | PostHistoryCreateOrConnectWithoutPostInput[]
+    upsert?: PostHistoryUpsertWithWhereUniqueWithoutPostInput | PostHistoryUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostHistoryCreateManyPostInputEnvelope
+    set?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    disconnect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    delete?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    update?: PostHistoryUpdateWithWhereUniqueWithoutPostInput | PostHistoryUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostHistoryUpdateManyWithWhereWithoutPostInput | PostHistoryUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+  }
+
+  export type AccountUpdateOneWithoutPostNestedInput = {
+    create?: XOR<AccountCreateWithoutPostInput, AccountUncheckedCreateWithoutPostInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutPostInput
+    upsert?: AccountUpsertWithoutPostInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutPostInput, AccountUpdateWithoutPostInput>, AccountUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostHistoryUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput> | PostHistoryCreateWithoutPostInput[] | PostHistoryUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutPostInput | PostHistoryCreateOrConnectWithoutPostInput[]
+    upsert?: PostHistoryUpsertWithWhereUniqueWithoutPostInput | PostHistoryUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostHistoryCreateManyPostInputEnvelope
+    set?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    disconnect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    delete?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    connect?: PostHistoryWhereUniqueInput | PostHistoryWhereUniqueInput[]
+    update?: PostHistoryUpdateWithWhereUniqueWithoutPostInput | PostHistoryUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostHistoryUpdateManyWithWhereWithoutPostInput | PostHistoryUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+  }
+
+  export type AccountCreateNestedOneWithoutPostHistoryInput = {
+    create?: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutPostHistoryInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type PostCreateNestedOneWithoutPostHistoryInput = {
+    create?: XOR<PostCreateWithoutPostHistoryInput, PostUncheckedCreateWithoutPostHistoryInput>
+    connectOrCreate?: PostCreateOrConnectWithoutPostHistoryInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type AccountUpdateOneWithoutPostHistoryNestedInput = {
+    create?: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutPostHistoryInput
+    upsert?: AccountUpsertWithoutPostHistoryInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutPostHistoryInput, AccountUpdateWithoutPostHistoryInput>, AccountUncheckedUpdateWithoutPostHistoryInput>
+  }
+
+  export type PostUpdateOneWithoutPostHistoryNestedInput = {
+    create?: XOR<PostCreateWithoutPostHistoryInput, PostUncheckedCreateWithoutPostHistoryInput>
+    connectOrCreate?: PostCreateOrConnectWithoutPostHistoryInput
+    upsert?: PostUpsertWithoutPostHistoryInput
+    disconnect?: PostWhereInput | boolean
+    delete?: PostWhereInput | boolean
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutPostHistoryInput, PostUpdateWithoutPostHistoryInput>, PostUncheckedUpdateWithoutPostHistoryInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3361,6 +5410,533 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type PostCreateWithoutAccountInput = {
+    postId?: string
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutAccountInput = {
+    postId?: string
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutAccountInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput>
+  }
+
+  export type PostCreateManyAccountInputEnvelope = {
+    data: PostCreateManyAccountInput | PostCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostHistoryCreateWithoutAccountInput = {
+    postHistoryId?: string
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Post?: PostCreateNestedOneWithoutPostHistoryInput
+  }
+
+  export type PostHistoryUncheckedCreateWithoutAccountInput = {
+    postHistoryId?: string
+    postId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryCreateOrConnectWithoutAccountInput = {
+    where: PostHistoryWhereUniqueInput
+    create: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput>
+  }
+
+  export type PostHistoryCreateManyAccountInputEnvelope = {
+    data: PostHistoryCreateManyAccountInput | PostHistoryCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostUpsertWithWhereUniqueWithoutAccountInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutAccountInput, PostUncheckedUpdateWithoutAccountInput>
+    create: XOR<PostCreateWithoutAccountInput, PostUncheckedCreateWithoutAccountInput>
+  }
+
+  export type PostUpdateWithWhereUniqueWithoutAccountInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutAccountInput, PostUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type PostUpdateManyWithWhereWithoutAccountInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type PostScalarWhereInput = {
+    AND?: PostScalarWhereInput | PostScalarWhereInput[]
+    OR?: PostScalarWhereInput[]
+    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
+    postId?: StringFilter<"Post"> | string
+    accountId?: StringNullableFilter<"Post"> | string | null
+    name?: StringFilter<"Post"> | string
+    detail?: StringNullableFilter<"Post"> | string | null
+    point?: IntNullableFilter<"Post"> | number | null
+    isDelete?: BoolFilter<"Post"> | boolean
+    isActive?: BoolFilter<"Post"> | boolean
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+  }
+
+  export type PostHistoryUpsertWithWhereUniqueWithoutAccountInput = {
+    where: PostHistoryWhereUniqueInput
+    update: XOR<PostHistoryUpdateWithoutAccountInput, PostHistoryUncheckedUpdateWithoutAccountInput>
+    create: XOR<PostHistoryCreateWithoutAccountInput, PostHistoryUncheckedCreateWithoutAccountInput>
+  }
+
+  export type PostHistoryUpdateWithWhereUniqueWithoutAccountInput = {
+    where: PostHistoryWhereUniqueInput
+    data: XOR<PostHistoryUpdateWithoutAccountInput, PostHistoryUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type PostHistoryUpdateManyWithWhereWithoutAccountInput = {
+    where: PostHistoryScalarWhereInput
+    data: XOR<PostHistoryUpdateManyMutationInput, PostHistoryUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type PostHistoryScalarWhereInput = {
+    AND?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+    OR?: PostHistoryScalarWhereInput[]
+    NOT?: PostHistoryScalarWhereInput | PostHistoryScalarWhereInput[]
+    postHistoryId?: StringFilter<"PostHistory"> | string
+    accountId?: StringNullableFilter<"PostHistory"> | string | null
+    postId?: StringNullableFilter<"PostHistory"> | string | null
+    isCancel?: BoolFilter<"PostHistory"> | boolean
+    isActive?: BoolFilter<"PostHistory"> | boolean
+    createdAt?: DateTimeFilter<"PostHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+  }
+
+  export type PostHistoryCreateWithoutPostInput = {
+    postHistoryId?: string
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Account?: AccountCreateNestedOneWithoutPostHistoryInput
+  }
+
+  export type PostHistoryUncheckedCreateWithoutPostInput = {
+    postHistoryId?: string
+    accountId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryCreateOrConnectWithoutPostInput = {
+    where: PostHistoryWhereUniqueInput
+    create: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostHistoryCreateManyPostInputEnvelope = {
+    data: PostHistoryCreateManyPostInput | PostHistoryCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccountCreateWithoutPostInput = {
+    accountId?: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    passwordHash: string
+    passwordSalt: string
+    role: string
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutPostInput = {
+    accountId?: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    passwordHash: string
+    passwordSalt: string
+    role: string
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutPostInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutPostInput, AccountUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostHistoryUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostHistoryWhereUniqueInput
+    update: XOR<PostHistoryUpdateWithoutPostInput, PostHistoryUncheckedUpdateWithoutPostInput>
+    create: XOR<PostHistoryCreateWithoutPostInput, PostHistoryUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostHistoryUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostHistoryWhereUniqueInput
+    data: XOR<PostHistoryUpdateWithoutPostInput, PostHistoryUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostHistoryUpdateManyWithWhereWithoutPostInput = {
+    where: PostHistoryScalarWhereInput
+    data: XOR<PostHistoryUpdateManyMutationInput, PostHistoryUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type AccountUpsertWithoutPostInput = {
+    update: XOR<AccountUpdateWithoutPostInput, AccountUncheckedUpdateWithoutPostInput>
+    create: XOR<AccountCreateWithoutPostInput, AccountUncheckedCreateWithoutPostInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutPostInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutPostInput, AccountUncheckedUpdateWithoutPostInput>
+  }
+
+  export type AccountUpdateWithoutPostInput = {
+    accountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordSalt?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUpdateManyWithoutAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutPostInput = {
+    accountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordSalt?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type AccountCreateWithoutPostHistoryInput = {
+    accountId?: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    passwordHash: string
+    passwordSalt: string
+    role: string
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Post?: PostCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutPostHistoryInput = {
+    accountId?: string
+    username: string
+    firstName?: string | null
+    lastName?: string | null
+    passwordHash: string
+    passwordSalt: string
+    role: string
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Post?: PostUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutPostHistoryInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
+  }
+
+  export type PostCreateWithoutPostHistoryInput = {
+    postId?: string
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Account?: AccountCreateNestedOneWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutPostHistoryInput = {
+    postId?: string
+    accountId?: string | null
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCreateOrConnectWithoutPostHistoryInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutPostHistoryInput, PostUncheckedCreateWithoutPostHistoryInput>
+  }
+
+  export type AccountUpsertWithoutPostHistoryInput = {
+    update: XOR<AccountUpdateWithoutPostHistoryInput, AccountUncheckedUpdateWithoutPostHistoryInput>
+    create: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutPostHistoryInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutPostHistoryInput, AccountUncheckedUpdateWithoutPostHistoryInput>
+  }
+
+  export type AccountUpdateWithoutPostHistoryInput = {
+    accountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordSalt?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Post?: PostUpdateManyWithoutAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutPostHistoryInput = {
+    accountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordSalt?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Post?: PostUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type PostUpsertWithoutPostHistoryInput = {
+    update: XOR<PostUpdateWithoutPostHistoryInput, PostUncheckedUpdateWithoutPostHistoryInput>
+    create: XOR<PostCreateWithoutPostHistoryInput, PostUncheckedCreateWithoutPostHistoryInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutPostHistoryInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutPostHistoryInput, PostUncheckedUpdateWithoutPostHistoryInput>
+  }
+
+  export type PostUpdateWithoutPostHistoryInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Account?: AccountUpdateOneWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutPostHistoryInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCreateManyAccountInput = {
+    postId?: string
+    name: string
+    detail?: string | null
+    point?: number | null
+    isDelete?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryCreateManyAccountInput = {
+    postHistoryId?: string
+    postId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostUpdateWithoutAccountInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutAccountInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateManyWithoutAccountInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    detail?: NullableStringFieldUpdateOperationsInput | string | null
+    point?: NullableIntFieldUpdateOperationsInput | number | null
+    isDelete?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryUpdateWithoutAccountInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Post?: PostUpdateOneWithoutPostHistoryNestedInput
+  }
+
+  export type PostHistoryUncheckedUpdateWithoutAccountInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryUncheckedUpdateManyWithoutAccountInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryCreateManyPostInput = {
+    postHistoryId?: string
+    accountId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostHistoryUpdateWithoutPostInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Account?: AccountUpdateOneWithoutPostHistoryNestedInput
+  }
+
+  export type PostHistoryUncheckedUpdateWithoutPostInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHistoryUncheckedUpdateManyWithoutPostInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
