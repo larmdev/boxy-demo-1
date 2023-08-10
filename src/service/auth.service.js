@@ -36,6 +36,9 @@ async function signUp(dto) {
             firstName: dto.firstName,
             lastName: dto.lastName,
             role: dto.role,
+            email: dto.email,
+            faculty: dto.faculty,
+            branch: dto.branch,
             passwordHash: passwordHash,
             passwordSalt: passwordSalt
 

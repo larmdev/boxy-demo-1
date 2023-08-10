@@ -23,6 +23,9 @@ export type AccountPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     username: string
     firstName: string | null
     lastName: string | null
+    email: string | null
+    faculty: string | null
+    branch: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -1183,6 +1186,9 @@ export namespace Prisma {
     username: string | null
     firstName: string | null
     lastName: string | null
+    email: string | null
+    faculty: string | null
+    branch: string | null
     passwordHash: string | null
     passwordSalt: string | null
     role: string | null
@@ -1197,6 +1203,9 @@ export namespace Prisma {
     username: string | null
     firstName: string | null
     lastName: string | null
+    email: string | null
+    faculty: string | null
+    branch: string | null
     passwordHash: string | null
     passwordSalt: string | null
     role: string | null
@@ -1211,6 +1220,9 @@ export namespace Prisma {
     username: number
     firstName: number
     lastName: number
+    email: number
+    faculty: number
+    branch: number
     passwordHash: number
     passwordSalt: number
     role: number
@@ -1227,6 +1239,9 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    email?: true
+    faculty?: true
+    branch?: true
     passwordHash?: true
     passwordSalt?: true
     role?: true
@@ -1241,6 +1256,9 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    email?: true
+    faculty?: true
+    branch?: true
     passwordHash?: true
     passwordSalt?: true
     role?: true
@@ -1255,6 +1273,9 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    email?: true
+    faculty?: true
+    branch?: true
     passwordHash?: true
     passwordSalt?: true
     role?: true
@@ -1343,6 +1364,9 @@ export namespace Prisma {
     username: string
     firstName: string | null
     lastName: string | null
+    email: string | null
+    faculty: string | null
+    branch: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -1374,6 +1398,9 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    email?: boolean
+    faculty?: boolean
+    branch?: boolean
     passwordHash?: boolean
     passwordSalt?: boolean
     role?: boolean
@@ -1391,6 +1418,9 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    email?: boolean
+    faculty?: boolean
+    branch?: boolean
     passwordHash?: boolean
     passwordSalt?: boolean
     role?: boolean
@@ -1816,6 +1846,9 @@ export namespace Prisma {
     readonly username: FieldRef<"Account", 'String'>
     readonly firstName: FieldRef<"Account", 'String'>
     readonly lastName: FieldRef<"Account", 'String'>
+    readonly email: FieldRef<"Account", 'String'>
+    readonly faculty: FieldRef<"Account", 'String'>
+    readonly branch: FieldRef<"Account", 'String'>
     readonly passwordHash: FieldRef<"Account", 'String'>
     readonly passwordSalt: FieldRef<"Account", 'String'>
     readonly role: FieldRef<"Account", 'String'>
@@ -4218,6 +4251,9 @@ export namespace Prisma {
     username: 'username',
     firstName: 'firstName',
     lastName: 'lastName',
+    email: 'email',
+    faculty: 'faculty',
+    branch: 'branch',
     passwordHash: 'passwordHash',
     passwordSalt: 'passwordSalt',
     role: 'role',
@@ -4325,6 +4361,9 @@ export namespace Prisma {
     username?: StringFilter<"Account"> | string
     firstName?: StringNullableFilter<"Account"> | string | null
     lastName?: StringNullableFilter<"Account"> | string | null
+    email?: StringNullableFilter<"Account"> | string | null
+    faculty?: StringNullableFilter<"Account"> | string | null
+    branch?: StringNullableFilter<"Account"> | string | null
     passwordHash?: StringFilter<"Account"> | string
     passwordSalt?: StringFilter<"Account"> | string
     role?: StringFilter<"Account"> | string
@@ -4341,6 +4380,9 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    faculty?: SortOrderInput | SortOrder
+    branch?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
     passwordSalt?: SortOrder
     role?: SortOrder
@@ -4360,6 +4402,9 @@ export namespace Prisma {
     username?: StringFilter<"Account"> | string
     firstName?: StringNullableFilter<"Account"> | string | null
     lastName?: StringNullableFilter<"Account"> | string | null
+    email?: StringNullableFilter<"Account"> | string | null
+    faculty?: StringNullableFilter<"Account"> | string | null
+    branch?: StringNullableFilter<"Account"> | string | null
     passwordHash?: StringFilter<"Account"> | string
     passwordSalt?: StringFilter<"Account"> | string
     role?: StringFilter<"Account"> | string
@@ -4376,6 +4421,9 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    faculty?: SortOrderInput | SortOrder
+    branch?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
     passwordSalt?: SortOrder
     role?: SortOrder
@@ -4396,6 +4444,9 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"Account"> | string
     firstName?: StringNullableWithAggregatesFilter<"Account"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    faculty?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    branch?: StringNullableWithAggregatesFilter<"Account"> | string | null
     passwordHash?: StringWithAggregatesFilter<"Account"> | string
     passwordSalt?: StringWithAggregatesFilter<"Account"> | string
     role?: StringWithAggregatesFilter<"Account"> | string
@@ -4558,6 +4609,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -4574,6 +4628,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -4590,6 +4647,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -4606,6 +4666,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -4622,6 +4685,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -4636,6 +4702,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -4650,6 +4719,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -4888,6 +4960,9 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    faculty?: SortOrder
+    branch?: SortOrder
     passwordHash?: SortOrder
     passwordSalt?: SortOrder
     role?: SortOrder
@@ -4902,6 +4977,9 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    faculty?: SortOrder
+    branch?: SortOrder
     passwordHash?: SortOrder
     passwordSalt?: SortOrder
     role?: SortOrder
@@ -4916,6 +4994,9 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    faculty?: SortOrder
+    branch?: SortOrder
     passwordHash?: SortOrder
     passwordSalt?: SortOrder
     role?: SortOrder
@@ -5594,6 +5675,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -5609,6 +5693,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -5656,6 +5743,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -5671,6 +5761,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -5686,6 +5779,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -5701,6 +5797,9 @@ export namespace Prisma {
     username: string
     firstName?: string | null
     lastName?: string | null
+    email?: string | null
+    faculty?: string | null
+    branch?: string | null
     passwordHash: string
     passwordSalt: string
     role: string
@@ -5761,6 +5860,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -5776,6 +5878,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: NullableStringFieldUpdateOperationsInput | string | null
+    branch?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
     passwordSalt?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
