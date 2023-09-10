@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "e3d1d351-0d35-4e25-b821-11ee776ab16a",
+		"name": "Post Signup (student)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21817233"
+	},
+	"item": [
+		{
+			"name": "get post signup",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create post signup",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"postId\": \"750ccf55-b600-44f0-8111-3ca8b4cbe1d8\",\n    \"accountId\": \"c37ce4c2-61c5-4f79-b3b4-52c70b9b9cdf\",\n    \"name\": \"post dang dang aaa\",\n    \"detail\": \"detail detail\",\n    \"point\": 3,\n    \"isDelete\": false,\n    \"isActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts/signup/:postId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"signup",
+						":postId"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "16325524-56de-4bda-bcd4-78e4b0a4db91"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel and delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"postId\": \"750ccf55-b600-44f0-8111-3ca8b4cbe1d8\",\n    \"accountId\": \"c37ce4c2-61c5-4f79-b3b4-52c70b9b9cdf\",\n    \"name\": \"post dang dang aaa\",\n    \"detail\": \"detail detail\",\n    \"point\": 3,\n    \"isDelete\": false,\n    \"isActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts/signup/:postId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"signup",
+						":postId"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "16325524-56de-4bda-bcd4-78e4b0a4db91"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

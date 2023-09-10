@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "14fd17e7-f663-4e5d-aa9e-d71a9035e8a3",
+		"name": "Post Signup Manage (teacher)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21817233"
+	},
+	"item": [
+		{
+			"name": "get post signup magent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/manage?postId=16325524-56de-4bda-bcd4-78e4b0a4db91",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"manage"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "16325524-56de-4bda-bcd4-78e4b0a4db91"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "approve post signup",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/manage/:postHistoryId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"manage",
+						":postHistoryId"
+					],
+					"variable": [
+						{
+							"key": "postHistoryId",
+							"value": "ebeffd57-1545-4b0e-8f93-329b79254316"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
