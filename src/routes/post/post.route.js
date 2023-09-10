@@ -7,7 +7,8 @@ const postServices = require('../../service/post.service.js');
 router.get('/public', async (req, res) => {
     const size = req.query.size || 20;
     const page = req.query.page;
-    const result = await postServices.getPost(null, size, page);
+    const keyword = req.query.keyword;
+    const result = await postServices.getPost(null, null, size, page, keyword);
     return res.json(result);
 });
 
@@ -15,7 +16,9 @@ router.get('/', VerifyToken, async (req, res) => {
     const accountId = req.context.accountId;
     const size = req.query.size || 20;
     const page = req.query.page;
-    const result = await postServices.getPost(accountId, size, page);
+    const keyword = req.query.keyword;
+    const postId = req.query.postId;
+    const result = await postServices.getPost(accountId, postId, size, page, keyword);
     return res.json(result);
 });
 

@@ -3,7 +3,7 @@ const { Response } = require('../constants/response.js');
 const { generateToken, sha512 } = require('../utils/crypto.utils.js');
 const { signAccessToken } = require('../utils/jwt.utils.js');
 
-async function getPost(accountId, size, page) {
+async function getPost(accountId, postId, size, page, keyword) {
     
     try {
         const limit = +(size);
@@ -14,6 +14,21 @@ async function getPost(accountId, size, page) {
 
         if (accountId) {
             conditions.accountId = accountId;
+        }
+
+        if (postId) {
+            conditions.postId = postId;
+        }
+
+        if (keyword) {
+            conditions.OR = [
+                {
+                 name: { contains: keyword },
+                },
+                {
+                 detail: { contains: keyword }
+                },
+            ]
         }
 
         const posts = await readClient.post.findMany({
@@ -31,7 +46,7 @@ async function getPost(accountId, size, page) {
 
         return {
             code: Response.Success.code,
-            message: Response.CreatedSuccess.message,
+            message: Response.Success.message,
             total: count,
 			lastPage: Math.ceil(count / limit),
 			currPage: +page || 1,

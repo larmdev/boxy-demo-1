@@ -46,7 +46,7 @@ model PostHistory {
     accountId     String?  @db.VarChar(36)
     postId        String?  @db.VarChar(36)
     isCancel      Boolean  @default(false)
-    isActive      Boolean  @default(true)
+    isActive      Boolean  @default(false)
     createdAt     DateTime @default(now()) @db.DateTime(0)
     updatedAt     DateTime @updatedAt @db.DateTime(0)
     Account       Account? @relation(fields: [accountId], references: [accountId])
