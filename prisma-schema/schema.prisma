@@ -38,6 +38,7 @@ model Post {
     createdAt   DateTime      @default(now()) @db.DateTime(0)
     updatedAt   DateTime      @updatedAt @db.DateTime(0)
     PostHistory PostHistory[]
+    Image       Image[]
     Account     Account?      @relation(fields: [accountId], references: [accountId])
 }
 
@@ -51,4 +52,12 @@ model PostHistory {
     updatedAt     DateTime @updatedAt @db.DateTime(0)
     Account       Account? @relation(fields: [accountId], references: [accountId])
     Post          Post?    @relation(fields: [postId], references: [postId])
+}
+
+model Image {
+    imageId   String   @id @default(uuid()) @db.VarChar(36)
+    postId    String  @db.VarChar(36)
+    imageUrl  String  @db.VarChar(500)
+    createdAt DateTime @default(now()) @db.DateTime(0)
+    Post      Post    @relation(fields: [postId], references: [postId])
 }
