@@ -39,6 +39,15 @@ async function getPost(accountId, postId, size, page, keyword) {
                     select: {
                         imageUrl: true
                     }
+                },
+                _count: {
+                    select: {
+                        PostHistory: {
+                            where: {
+                                isActive: true
+                            }
+                        }
+                    }
                 }
             },
             skip: offset,

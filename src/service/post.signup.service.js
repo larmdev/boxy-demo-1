@@ -21,6 +21,19 @@ async function getPostSignUp(accountId, size, page, keyword) {
 			take: limit,
             orderBy: {
                 createdAt: 'desc'
+            },
+            include: {
+                Account: {
+                    select: {
+                        username: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        faculty: true,
+                        branch: true
+                    }
+                },
+                Post: true
             }
         })
 

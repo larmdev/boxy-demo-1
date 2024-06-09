@@ -3,7 +3,7 @@ const { Response } = require('../constants/response.js');
 const { generateToken, sha512 } = require('../utils/crypto.utils.js');
 const { signAccessToken } = require('../utils/jwt.utils.js');
 
-async function getPostSignUpManage(postId, size, page) {
+async function getPostSignUpManage(postId, size, page, isActive) {
     
     try {
         const limit = +(size);
@@ -16,6 +16,10 @@ async function getPostSignUpManage(postId, size, page) {
             conditions.postId = postId;
         }
 
+        if (isActive != null) {
+            conditions.isActive = isActive;
+        }
+
         const posts = await readClient.postHistory.findMany({
             where: conditions,
             skip: offset,
@@ -23,6 +27,18 @@ async function getPostSignUpManage(postId, size, page) {
             orderBy: {
                 createdAt: 'asc'
             },
+            include: {
+                Account: {
+                    select: {
+                        username: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        faculty: true,
+                        branch: true
+                    }
+                }
+            }
         })
 
         const count = await readClient.postHistory.count({

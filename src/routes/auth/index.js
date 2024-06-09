@@ -11,6 +11,7 @@ router.get('/me', VerifyToken, async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     const body = req.body;
+    console.log('body', body);
     const result = await authServices.signUp(body);
     return res.json(result);
 });
