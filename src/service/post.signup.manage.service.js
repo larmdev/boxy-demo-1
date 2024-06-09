@@ -37,7 +37,8 @@ async function getPostSignUpManage(postId, size, page, isActive) {
                         faculty: true,
                         branch: true
                     }
-                }
+                },
+                Post: true
             }
         })
 
