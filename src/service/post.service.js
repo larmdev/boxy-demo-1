@@ -87,6 +87,10 @@ async function createPost(accountId, dto) {
             name: dto.name,
             detail: dto.detail,
             point: dto.point,
+            startDateBkk: dto.startDateBkk,
+            startTimeBkk: dto.startTimeBkk,
+            endDateBkk: dto.endDateBkk,
+            endTimeBkk: dto.endTimeBkk,
         };
 
         const imagePayload = [];
@@ -137,7 +141,11 @@ async function updatePost(accountId, postId, dto) {
         const payload = {
             name: dto.name,
             detail: dto.detail,
-            point: dto.point
+            point: dto.point,
+            startDateBkk: dto.startDateBkk,
+            startTimeBkk: dto.startTimeBkk,
+            endDateBkk: dto.endDateBkk,
+            endTimeBkk: dto.endTimeBkk,
         };
 
         const imagePayload = [];

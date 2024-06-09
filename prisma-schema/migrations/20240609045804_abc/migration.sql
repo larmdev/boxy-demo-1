@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE `Post` ADD COLUMN `endDateBkk` VARCHAR(100) NULL,
+    ADD COLUMN `endPostBkk` INTEGER NULL,
+    ADD COLUMN `endTimeBkk` VARCHAR(100) NULL,
+    ADD COLUMN `startDateBkk` VARCHAR(100) NULL,
+    ADD COLUMN `startPostBkk` INTEGER NULL,
+    ADD COLUMN `startTimeBkk` VARCHAR(100) NULL;

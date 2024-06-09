@@ -131,7 +131,13 @@ exports.Prisma.PostScalarFieldEnum = {
   isDelete: 'isDelete',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  startDateBkk: 'startDateBkk',
+  startTimeBkk: 'startTimeBkk',
+  endDateBkk: 'endDateBkk',
+  endTimeBkk: 'endTimeBkk',
+  startPostBkk: 'startPostBkk',
+  endPostBkk: 'endPostBkk'
 };
 
 exports.Prisma.PostHistoryScalarFieldEnum = {
