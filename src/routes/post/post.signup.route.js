@@ -28,4 +28,11 @@ router.delete('/:postId', VerifyToken, async (req, res) => {
     return res.json(result);
 });
 
+router.post('/:postId', VerifyToken, async (req, res) => {
+    const accountId = req.context.accountId;
+    const postId = req.params.postId;
+    const result = await postSignUpServices.createPostSignUp(accountId, postId);
+    return res.json(result);
+});
+
 module.exports = router

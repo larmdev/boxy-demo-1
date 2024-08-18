@@ -21,5 +21,12 @@ router.put('/:postHistoryId', VerifyToken, async (req, res) => {
     return res.json(result);
 });
 
+router.post('/:postHistoryId', VerifyToken, async (req, res) => {
+    const accountId = req.context.accountId;
+    const postHistoryId = req.params.postHistoryId;
+    const isActive = req.query?.isActive?.toLowerCase() === 'false' ? false: true;
+    const result = await postSignUpManageServices.approve(accountId, postHistoryId, isActive);
+    return res.json(result);
+});
 
 module.exports = router
