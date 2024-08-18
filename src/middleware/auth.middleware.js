@@ -16,11 +16,7 @@ function VerifyToken(req, res, next) {
             req.context = {};
         }
         const data = {
-            accountId: payload.accountId,
-            username: payload.username,
-            firstName: payload.firstName,
-            lastName: payload.lastName,
-            role: payload.role
+            ...payload
         }
         req.context.account = data;
         req.context.accountId = payload.accountId;
