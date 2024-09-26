@@ -21,7 +21,7 @@ async function getPostSignUpManage(postId, size, page, isActive, accountId) {
         }
 
         if (accountId != null) {
-            conditions.posts.where = {
+            conditions.Post = {
                 accountId : accountId
             };  
         }
