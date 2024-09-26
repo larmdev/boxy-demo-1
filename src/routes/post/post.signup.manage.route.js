@@ -8,8 +8,12 @@ router.get('/', VerifyToken, async (req, res) => {
     const postId = req.query.postId;
     const size = req.query.size || 20;
     const page = req.query.page;
+    var accountId = null;
+    if (req.context.account.role == "1") {
+        accountId = req.context.accountId;
+    }
     const isActive = req.query?.isActive?.toLowerCase() === 'true' ? true: req.query?.isActive?.toLowerCase() === 'false' ? false: null;
-    const result = await postSignUpManageServices.getPostSignUpManage(postId, size, page, isActive);
+    const result = await postSignUpManageServices.getPostSignUpManage(postId, size, page, isActive, accountId);
     return res.json(result);
 });
 
