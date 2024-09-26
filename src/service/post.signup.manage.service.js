@@ -21,7 +21,9 @@ async function getPostSignUpManage(postId, size, page, isActive, accountId) {
         }
 
         if (accountId != null) {
-            conditions.posts.accountId = accountId;  
+            conditions.posts.where = {
+                accountId : accountId
+            };  
         }
 
         const posts = await readClient.postHistory.findMany({
