@@ -20,7 +20,7 @@ async function getPostSignUpManage(postId, size, page, isActive, accountId) {
             conditions.isActive = isActive;
         }
 
-        if (accountId) {
+        if (accountId != null) {
             conditions.posts.accountId = accountId;  
         }
 
