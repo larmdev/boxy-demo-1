@@ -41,4 +41,10 @@ router.post('/:postId', VerifyToken, async (req, res) => {
     return res.json(result);
 });
 
+router.post('/send', VerifyToken, async (req, res) => {
+    const body = req.body;
+    const result = await postSignUpServices.sendPostSignUpHistoryById(body);
+    return res.json(result);
+});
+
 module.exports = router

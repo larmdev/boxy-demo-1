@@ -227,7 +227,7 @@ async function sendPostSignUpHistoryById(dto) {
             })
         }
 
-        const createImage = await readClient.imagePostHistory.createMany({
+        await readClient.imagePostHistory.createMany({
             data: imagePayload
         })
 
