@@ -62,6 +62,7 @@ model PostHistory {
     status        String?  @db.VarChar(100)
     Account       Account? @relation(fields: [accountId], references: [accountId])
     Post          Post?    @relation(fields: [postId], references: [postId])
+    ImagePostHistory    ImagePostHistory[]
 }
 
 model Image {
@@ -70,4 +71,12 @@ model Image {
     imageUrl  String   @db.VarChar(500)
     createdAt DateTime @default(now()) @db.DateTime(0)
     Post      Post     @relation(fields: [postId], references: [postId])
+}
+
+model ImagePostHistory  {
+    imagePostHistoryId   String   @id @default(uuid()) @db.VarChar(36)
+    postHistoryId        String   @db.VarChar(36)
+    imageUrl             String?   
+    createdAt            DateTime @default(now()) @db.DateTime(0)
+    PostHistory          PostHistory     @relation(fields: [postHistoryId], references: [postHistoryId])
 }

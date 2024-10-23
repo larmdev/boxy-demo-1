@@ -161,6 +161,13 @@ exports.Prisma.ImageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ImagePostHistoryScalarFieldEnum = {
+  imagePostHistoryId: 'imagePostHistoryId',
+  postHistoryId: 'postHistoryId',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -176,7 +183,8 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Post: 'Post',
   PostHistory: 'PostHistory',
-  Image: 'Image'
+  Image: 'Image',
+  ImagePostHistory: 'ImagePostHistory'
 };
 
 /**

@@ -82,6 +82,7 @@ export type PostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.De
   objects: {
     Account: AccountPayload<ExtArgs> | null
     Post: PostPayload<ExtArgs> | null
+    ImagePostHistory: ImagePostHistoryPayload<ExtArgs>[]
   }
   scalars: $Extensions.GetResult<{
     postHistoryId: string
@@ -120,6 +121,25 @@ export type ImagePayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultA
  * 
  */
 export type Image = runtime.Types.DefaultSelection<ImagePayload>
+export type ImagePostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "ImagePostHistory"
+  objects: {
+    PostHistory: PostHistoryPayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    imagePostHistoryId: string
+    postHistoryId: string
+    imageUrl: string | null
+    createdAt: Date
+  }, ExtArgs["result"]["imagePostHistory"]>
+  composites: {}
+}
+
+/**
+ * Model ImagePostHistory
+ * 
+ */
+export type ImagePostHistory = runtime.Types.DefaultSelection<ImagePostHistoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -282,6 +302,16 @@ export class PrismaClient<
     * ```
     */
   get image(): Prisma.ImageDelegate<ExtArgs>;
+
+  /**
+   * `prisma.imagePostHistory`: Exposes CRUD operations for the **ImagePostHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ImagePostHistories
+    * const imagePostHistories = await prisma.imagePostHistory.findMany()
+    * ```
+    */
+  get imagePostHistory(): Prisma.ImagePostHistoryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -768,7 +798,8 @@ export namespace Prisma {
     Account: 'Account',
     Post: 'Post',
     PostHistory: 'PostHistory',
-    Image: 'Image'
+    Image: 'Image',
+    ImagePostHistory: 'ImagePostHistory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -785,7 +816,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'post' | 'postHistory' | 'image'
+      modelProps: 'account' | 'post' | 'postHistory' | 'image' | 'imagePostHistory'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1053,6 +1084,72 @@ export namespace Prisma {
           }
         }
       }
+      ImagePostHistory: {
+        payload: ImagePostHistoryPayload<ExtArgs>
+        fields: Prisma.ImagePostHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImagePostHistoryFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImagePostHistoryFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.ImagePostHistoryFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImagePostHistoryFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.ImagePostHistoryFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.ImagePostHistoryCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.ImagePostHistoryCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ImagePostHistoryDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          update: {
+            args: Prisma.ImagePostHistoryUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.ImagePostHistoryDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImagePostHistoryUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ImagePostHistoryUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ImagePostHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.ImagePostHistoryAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateImagePostHistory>
+          }
+          groupBy: {
+            args: Prisma.ImagePostHistoryGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ImagePostHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImagePostHistoryCountArgs<ExtArgs>,
+            result: $Utils.Optional<ImagePostHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1279,6 +1376,41 @@ export namespace Prisma {
    */
   export type PostCountOutputTypeCountImageArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
+  }
+
+
+
+  /**
+   * Count Type PostHistoryCountOutputType
+   */
+
+
+  export type PostHistoryCountOutputType = {
+    ImagePostHistory: number
+  }
+
+  export type PostHistoryCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    ImagePostHistory?: boolean | PostHistoryCountOutputTypeCountImagePostHistoryArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * PostHistoryCountOutputType without action
+   */
+  export type PostHistoryCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHistoryCountOutputType
+     */
+    select?: PostHistoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * PostHistoryCountOutputType without action
+   */
+  export type PostHistoryCountOutputTypeCountImagePostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: ImagePostHistoryWhereInput
   }
 
 
@@ -3695,6 +3827,8 @@ export namespace Prisma {
     status?: boolean
     Account?: boolean | PostHistory$AccountArgs<ExtArgs>
     Post?: boolean | PostHistory$PostArgs<ExtArgs>
+    ImagePostHistory?: boolean | PostHistory$ImagePostHistoryArgs<ExtArgs>
+    _count?: boolean | PostHistoryCountOutputTypeArgs<ExtArgs>
   }, ExtArgs["result"]["postHistory"]>
 
   export type PostHistorySelectScalar = {
@@ -3711,6 +3845,8 @@ export namespace Prisma {
   export type PostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     Account?: boolean | PostHistory$AccountArgs<ExtArgs>
     Post?: boolean | PostHistory$PostArgs<ExtArgs>
+    ImagePostHistory?: boolean | PostHistory$ImagePostHistoryArgs<ExtArgs>
+    _count?: boolean | PostHistoryCountOutputTypeArgs<ExtArgs>
   }
 
 
@@ -4090,6 +4226,8 @@ export namespace Prisma {
 
     Post<T extends PostHistory$PostArgs<ExtArgs> = {}>(args?: Subset<T, PostHistory$PostArgs<ExtArgs>>): Prisma__PostClient<$Types.GetResult<PostPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
+    ImagePostHistory<T extends PostHistory$ImagePostHistoryArgs<ExtArgs> = {}>(args?: Subset<T, PostHistory$ImagePostHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findMany'>| Null>;
+
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4467,6 +4605,27 @@ export namespace Prisma {
      */
     include?: PostInclude<ExtArgs> | null
     where?: PostWhereInput
+  }
+
+
+  /**
+   * PostHistory.ImagePostHistory
+   */
+  export type PostHistory$ImagePostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    where?: ImagePostHistoryWhereInput
+    orderBy?: ImagePostHistoryOrderByWithRelationInput | ImagePostHistoryOrderByWithRelationInput[]
+    cursor?: ImagePostHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImagePostHistoryScalarFieldEnum | ImagePostHistoryScalarFieldEnum[]
   }
 
 
@@ -5394,6 +5553,913 @@ export namespace Prisma {
 
 
   /**
+   * Model ImagePostHistory
+   */
+
+
+  export type AggregateImagePostHistory = {
+    _count: ImagePostHistoryCountAggregateOutputType | null
+    _min: ImagePostHistoryMinAggregateOutputType | null
+    _max: ImagePostHistoryMaxAggregateOutputType | null
+  }
+
+  export type ImagePostHistoryMinAggregateOutputType = {
+    imagePostHistoryId: string | null
+    postHistoryId: string | null
+    imageUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type ImagePostHistoryMaxAggregateOutputType = {
+    imagePostHistoryId: string | null
+    postHistoryId: string | null
+    imageUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type ImagePostHistoryCountAggregateOutputType = {
+    imagePostHistoryId: number
+    postHistoryId: number
+    imageUrl: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ImagePostHistoryMinAggregateInputType = {
+    imagePostHistoryId?: true
+    postHistoryId?: true
+    imageUrl?: true
+    createdAt?: true
+  }
+
+  export type ImagePostHistoryMaxAggregateInputType = {
+    imagePostHistoryId?: true
+    postHistoryId?: true
+    imageUrl?: true
+    createdAt?: true
+  }
+
+  export type ImagePostHistoryCountAggregateInputType = {
+    imagePostHistoryId?: true
+    postHistoryId?: true
+    imageUrl?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ImagePostHistoryAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImagePostHistory to aggregate.
+     */
+    where?: ImagePostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePostHistories to fetch.
+     */
+    orderBy?: ImagePostHistoryOrderByWithRelationInput | ImagePostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImagePostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ImagePostHistories
+    **/
+    _count?: true | ImagePostHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImagePostHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImagePostHistoryMaxAggregateInputType
+  }
+
+  export type GetImagePostHistoryAggregateType<T extends ImagePostHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateImagePostHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImagePostHistory[P]>
+      : GetScalarType<T[P], AggregateImagePostHistory[P]>
+  }
+
+
+
+
+  export type ImagePostHistoryGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: ImagePostHistoryWhereInput
+    orderBy?: ImagePostHistoryOrderByWithAggregationInput | ImagePostHistoryOrderByWithAggregationInput[]
+    by: ImagePostHistoryScalarFieldEnum[] | ImagePostHistoryScalarFieldEnum
+    having?: ImagePostHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImagePostHistoryCountAggregateInputType | true
+    _min?: ImagePostHistoryMinAggregateInputType
+    _max?: ImagePostHistoryMaxAggregateInputType
+  }
+
+
+  export type ImagePostHistoryGroupByOutputType = {
+    imagePostHistoryId: string
+    postHistoryId: string
+    imageUrl: string | null
+    createdAt: Date
+    _count: ImagePostHistoryCountAggregateOutputType | null
+    _min: ImagePostHistoryMinAggregateOutputType | null
+    _max: ImagePostHistoryMaxAggregateOutputType | null
+  }
+
+  type GetImagePostHistoryGroupByPayload<T extends ImagePostHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImagePostHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImagePostHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImagePostHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], ImagePostHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImagePostHistorySelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    imagePostHistoryId?: boolean
+    postHistoryId?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+    PostHistory?: boolean | PostHistoryArgs<ExtArgs>
+  }, ExtArgs["result"]["imagePostHistory"]>
+
+  export type ImagePostHistorySelectScalar = {
+    imagePostHistoryId?: boolean
+    postHistoryId?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+  }
+
+  export type ImagePostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    PostHistory?: boolean | PostHistoryArgs<ExtArgs>
+  }
+
+
+  type ImagePostHistoryGetPayload<S extends boolean | null | undefined | ImagePostHistoryArgs> = $Types.GetResult<ImagePostHistoryPayload, S>
+
+  type ImagePostHistoryCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<ImagePostHistoryFindManyArgs, 'select' | 'include'> & {
+      select?: ImagePostHistoryCountAggregateInputType | true
+    }
+
+  export interface ImagePostHistoryDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ImagePostHistory'], meta: { name: 'ImagePostHistory' } }
+    /**
+     * Find zero or one ImagePostHistory that matches the filter.
+     * @param {ImagePostHistoryFindUniqueArgs} args - Arguments to find a ImagePostHistory
+     * @example
+     * // Get one ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ImagePostHistoryFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryFindUniqueArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ImagePostHistory that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ImagePostHistoryFindUniqueOrThrowArgs} args - Arguments to find a ImagePostHistory
+     * @example
+     * // Get one ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ImagePostHistoryFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ImagePostHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryFindFirstArgs} args - Arguments to find a ImagePostHistory
+     * @example
+     * // Get one ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ImagePostHistoryFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryFindFirstArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ImagePostHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryFindFirstOrThrowArgs} args - Arguments to find a ImagePostHistory
+     * @example
+     * // Get one ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ImagePostHistoryFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ImagePostHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ImagePostHistories
+     * const imagePostHistories = await prisma.imagePostHistory.findMany()
+     * 
+     * // Get first 10 ImagePostHistories
+     * const imagePostHistories = await prisma.imagePostHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `imagePostHistoryId`
+     * const imagePostHistoryWithImagePostHistoryIdOnly = await prisma.imagePostHistory.findMany({ select: { imagePostHistoryId: true } })
+     * 
+    **/
+    findMany<T extends ImagePostHistoryFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ImagePostHistory.
+     * @param {ImagePostHistoryCreateArgs} args - Arguments to create a ImagePostHistory.
+     * @example
+     * // Create one ImagePostHistory
+     * const ImagePostHistory = await prisma.imagePostHistory.create({
+     *   data: {
+     *     // ... data to create a ImagePostHistory
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ImagePostHistoryCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryCreateArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ImagePostHistories.
+     *     @param {ImagePostHistoryCreateManyArgs} args - Arguments to create many ImagePostHistories.
+     *     @example
+     *     // Create many ImagePostHistories
+     *     const imagePostHistory = await prisma.imagePostHistory.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ImagePostHistoryCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ImagePostHistory.
+     * @param {ImagePostHistoryDeleteArgs} args - Arguments to delete one ImagePostHistory.
+     * @example
+     * // Delete one ImagePostHistory
+     * const ImagePostHistory = await prisma.imagePostHistory.delete({
+     *   where: {
+     *     // ... filter to delete one ImagePostHistory
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ImagePostHistoryDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryDeleteArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ImagePostHistory.
+     * @param {ImagePostHistoryUpdateArgs} args - Arguments to update one ImagePostHistory.
+     * @example
+     * // Update one ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ImagePostHistoryUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryUpdateArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ImagePostHistories.
+     * @param {ImagePostHistoryDeleteManyArgs} args - Arguments to filter ImagePostHistories to delete.
+     * @example
+     * // Delete a few ImagePostHistories
+     * const { count } = await prisma.imagePostHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ImagePostHistoryDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ImagePostHistoryDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImagePostHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ImagePostHistories
+     * const imagePostHistory = await prisma.imagePostHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ImagePostHistoryUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ImagePostHistory.
+     * @param {ImagePostHistoryUpsertArgs} args - Arguments to update or create a ImagePostHistory.
+     * @example
+     * // Update or create a ImagePostHistory
+     * const imagePostHistory = await prisma.imagePostHistory.upsert({
+     *   create: {
+     *     // ... data to create a ImagePostHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ImagePostHistory we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ImagePostHistoryUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ImagePostHistoryUpsertArgs<ExtArgs>>
+    ): Prisma__ImagePostHistoryClient<$Types.GetResult<ImagePostHistoryPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ImagePostHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryCountArgs} args - Arguments to filter ImagePostHistories to count.
+     * @example
+     * // Count the number of ImagePostHistories
+     * const count = await prisma.imagePostHistory.count({
+     *   where: {
+     *     // ... the filter for the ImagePostHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImagePostHistoryCountArgs>(
+      args?: Subset<T, ImagePostHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImagePostHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ImagePostHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImagePostHistoryAggregateArgs>(args: Subset<T, ImagePostHistoryAggregateArgs>): Prisma.PrismaPromise<GetImagePostHistoryAggregateType<T>>
+
+    /**
+     * Group by ImagePostHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePostHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImagePostHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImagePostHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: ImagePostHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImagePostHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImagePostHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ImagePostHistory model
+   */
+  readonly fields: ImagePostHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ImagePostHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ImagePostHistoryClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    PostHistory<T extends PostHistoryArgs<ExtArgs> = {}>(args?: Subset<T, PostHistoryArgs<ExtArgs>>): Prisma__PostHistoryClient<$Types.GetResult<PostHistoryPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ImagePostHistory model
+   */ 
+  interface ImagePostHistoryFieldRefs {
+    readonly imagePostHistoryId: FieldRef<"ImagePostHistory", 'String'>
+    readonly postHistoryId: FieldRef<"ImagePostHistory", 'String'>
+    readonly imageUrl: FieldRef<"ImagePostHistory", 'String'>
+    readonly createdAt: FieldRef<"ImagePostHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ImagePostHistory findUnique
+   */
+  export type ImagePostHistoryFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePostHistory to fetch.
+     */
+    where: ImagePostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ImagePostHistory findUniqueOrThrow
+   */
+  export type ImagePostHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePostHistory to fetch.
+     */
+    where: ImagePostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ImagePostHistory findFirst
+   */
+  export type ImagePostHistoryFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePostHistory to fetch.
+     */
+    where?: ImagePostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePostHistories to fetch.
+     */
+    orderBy?: ImagePostHistoryOrderByWithRelationInput | ImagePostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImagePostHistories.
+     */
+    cursor?: ImagePostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImagePostHistories.
+     */
+    distinct?: ImagePostHistoryScalarFieldEnum | ImagePostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ImagePostHistory findFirstOrThrow
+   */
+  export type ImagePostHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePostHistory to fetch.
+     */
+    where?: ImagePostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePostHistories to fetch.
+     */
+    orderBy?: ImagePostHistoryOrderByWithRelationInput | ImagePostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImagePostHistories.
+     */
+    cursor?: ImagePostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePostHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImagePostHistories.
+     */
+    distinct?: ImagePostHistoryScalarFieldEnum | ImagePostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ImagePostHistory findMany
+   */
+  export type ImagePostHistoryFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePostHistories to fetch.
+     */
+    where?: ImagePostHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePostHistories to fetch.
+     */
+    orderBy?: ImagePostHistoryOrderByWithRelationInput | ImagePostHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ImagePostHistories.
+     */
+    cursor?: ImagePostHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePostHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePostHistories.
+     */
+    skip?: number
+    distinct?: ImagePostHistoryScalarFieldEnum | ImagePostHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ImagePostHistory create
+   */
+  export type ImagePostHistoryCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ImagePostHistory.
+     */
+    data: XOR<ImagePostHistoryCreateInput, ImagePostHistoryUncheckedCreateInput>
+  }
+
+
+  /**
+   * ImagePostHistory createMany
+   */
+  export type ImagePostHistoryCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ImagePostHistories.
+     */
+    data: ImagePostHistoryCreateManyInput | ImagePostHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ImagePostHistory update
+   */
+  export type ImagePostHistoryUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ImagePostHistory.
+     */
+    data: XOR<ImagePostHistoryUpdateInput, ImagePostHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which ImagePostHistory to update.
+     */
+    where: ImagePostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ImagePostHistory updateMany
+   */
+  export type ImagePostHistoryUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ImagePostHistories.
+     */
+    data: XOR<ImagePostHistoryUpdateManyMutationInput, ImagePostHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which ImagePostHistories to update
+     */
+    where?: ImagePostHistoryWhereInput
+  }
+
+
+  /**
+   * ImagePostHistory upsert
+   */
+  export type ImagePostHistoryUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ImagePostHistory to update in case it exists.
+     */
+    where: ImagePostHistoryWhereUniqueInput
+    /**
+     * In case the ImagePostHistory found by the `where` argument doesn't exist, create a new ImagePostHistory with this data.
+     */
+    create: XOR<ImagePostHistoryCreateInput, ImagePostHistoryUncheckedCreateInput>
+    /**
+     * In case the ImagePostHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImagePostHistoryUpdateInput, ImagePostHistoryUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ImagePostHistory delete
+   */
+  export type ImagePostHistoryDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which ImagePostHistory to delete.
+     */
+    where: ImagePostHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ImagePostHistory deleteMany
+   */
+  export type ImagePostHistoryDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImagePostHistories to delete
+     */
+    where?: ImagePostHistoryWhereInput
+  }
+
+
+  /**
+   * ImagePostHistory without action
+   */
+  export type ImagePostHistoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePostHistory
+     */
+    select?: ImagePostHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImagePostHistoryInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -5473,6 +6539,16 @@ export namespace Prisma {
   };
 
   export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+
+
+  export const ImagePostHistoryScalarFieldEnum: {
+    imagePostHistoryId: 'imagePostHistoryId',
+    postHistoryId: 'postHistoryId',
+    imageUrl: 'imageUrl',
+    createdAt: 'createdAt'
+  };
+
+  export type ImagePostHistoryScalarFieldEnum = (typeof ImagePostHistoryScalarFieldEnum)[keyof typeof ImagePostHistoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5779,6 +6855,7 @@ export namespace Prisma {
     status?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
+    ImagePostHistory?: ImagePostHistoryListRelationFilter
   }
 
   export type PostHistoryOrderByWithRelationInput = {
@@ -5792,6 +6869,7 @@ export namespace Prisma {
     status?: SortOrderInput | SortOrder
     Account?: AccountOrderByWithRelationInput
     Post?: PostOrderByWithRelationInput
+    ImagePostHistory?: ImagePostHistoryOrderByRelationAggregateInput
   }
 
   export type PostHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -5808,6 +6886,7 @@ export namespace Prisma {
     status?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
+    ImagePostHistory?: ImagePostHistoryListRelationFilter
   }, "postHistoryId">
 
   export type PostHistoryOrderByWithAggregationInput = {
@@ -5886,6 +6965,56 @@ export namespace Prisma {
     postId?: StringWithAggregatesFilter<"Image"> | string
     imageUrl?: StringWithAggregatesFilter<"Image"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+  }
+
+  export type ImagePostHistoryWhereInput = {
+    AND?: ImagePostHistoryWhereInput | ImagePostHistoryWhereInput[]
+    OR?: ImagePostHistoryWhereInput[]
+    NOT?: ImagePostHistoryWhereInput | ImagePostHistoryWhereInput[]
+    imagePostHistoryId?: StringFilter<"ImagePostHistory"> | string
+    postHistoryId?: StringFilter<"ImagePostHistory"> | string
+    imageUrl?: StringNullableFilter<"ImagePostHistory"> | string | null
+    createdAt?: DateTimeFilter<"ImagePostHistory"> | Date | string
+    PostHistory?: XOR<PostHistoryRelationFilter, PostHistoryWhereInput>
+  }
+
+  export type ImagePostHistoryOrderByWithRelationInput = {
+    imagePostHistoryId?: SortOrder
+    postHistoryId?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    PostHistory?: PostHistoryOrderByWithRelationInput
+  }
+
+  export type ImagePostHistoryWhereUniqueInput = Prisma.AtLeast<{
+    imagePostHistoryId?: string
+    AND?: ImagePostHistoryWhereInput | ImagePostHistoryWhereInput[]
+    OR?: ImagePostHistoryWhereInput[]
+    NOT?: ImagePostHistoryWhereInput | ImagePostHistoryWhereInput[]
+    postHistoryId?: StringFilter<"ImagePostHistory"> | string
+    imageUrl?: StringNullableFilter<"ImagePostHistory"> | string | null
+    createdAt?: DateTimeFilter<"ImagePostHistory"> | Date | string
+    PostHistory?: XOR<PostHistoryRelationFilter, PostHistoryWhereInput>
+  }, "imagePostHistoryId">
+
+  export type ImagePostHistoryOrderByWithAggregationInput = {
+    imagePostHistoryId?: SortOrder
+    postHistoryId?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ImagePostHistoryCountOrderByAggregateInput
+    _max?: ImagePostHistoryMaxOrderByAggregateInput
+    _min?: ImagePostHistoryMinOrderByAggregateInput
+  }
+
+  export type ImagePostHistoryScalarWhereWithAggregatesInput = {
+    AND?: ImagePostHistoryScalarWhereWithAggregatesInput | ImagePostHistoryScalarWhereWithAggregatesInput[]
+    OR?: ImagePostHistoryScalarWhereWithAggregatesInput[]
+    NOT?: ImagePostHistoryScalarWhereWithAggregatesInput | ImagePostHistoryScalarWhereWithAggregatesInput[]
+    imagePostHistoryId?: StringWithAggregatesFilter<"ImagePostHistory"> | string
+    postHistoryId?: StringWithAggregatesFilter<"ImagePostHistory"> | string
+    imageUrl?: StringNullableWithAggregatesFilter<"ImagePostHistory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ImagePostHistory"> | Date | string
   }
 
   export type AccountCreateInput = {
@@ -6178,6 +7307,7 @@ export namespace Prisma {
     status?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
+    ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryUncheckedCreateInput = {
@@ -6189,6 +7319,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryUpdateInput = {
@@ -6200,6 +7331,7 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
+    ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryUncheckedUpdateInput = {
@@ -6211,6 +7343,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryCreateManyInput = {
@@ -6289,6 +7422,54 @@ export namespace Prisma {
     imageId?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryCreateInput = {
+    imagePostHistoryId?: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+    PostHistory: PostHistoryCreateNestedOneWithoutImagePostHistoryInput
+  }
+
+  export type ImagePostHistoryUncheckedCreateInput = {
+    imagePostHistoryId?: string
+    postHistoryId: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ImagePostHistoryUpdateInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PostHistory?: PostHistoryUpdateOneRequiredWithoutImagePostHistoryNestedInput
+  }
+
+  export type ImagePostHistoryUncheckedUpdateInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryCreateManyInput = {
+    imagePostHistoryId?: string
+    postHistoryId: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ImagePostHistoryUpdateManyMutationInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryUncheckedUpdateManyInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6619,6 +7800,16 @@ export namespace Prisma {
     isNot?: PostWhereInput | null
   }
 
+  export type ImagePostHistoryListRelationFilter = {
+    every?: ImagePostHistoryWhereInput
+    some?: ImagePostHistoryWhereInput
+    none?: ImagePostHistoryWhereInput
+  }
+
+  export type ImagePostHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PostHistoryCountOrderByAggregateInput = {
     postHistoryId?: SortOrder
     accountId?: SortOrder
@@ -6674,6 +7865,32 @@ export namespace Prisma {
   export type ImageMinOrderByAggregateInput = {
     imageId?: SortOrder
     postId?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostHistoryRelationFilter = {
+    is?: PostHistoryWhereInput
+    isNot?: PostHistoryWhereInput
+  }
+
+  export type ImagePostHistoryCountOrderByAggregateInput = {
+    imagePostHistoryId?: SortOrder
+    postHistoryId?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ImagePostHistoryMaxOrderByAggregateInput = {
+    imagePostHistoryId?: SortOrder
+    postHistoryId?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ImagePostHistoryMinOrderByAggregateInput = {
+    imagePostHistoryId?: SortOrder
+    postHistoryId?: SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
   }
@@ -6906,6 +8123,20 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput
   }
 
+  export type ImagePostHistoryCreateNestedManyWithoutPostHistoryInput = {
+    create?: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput> | ImagePostHistoryCreateWithoutPostHistoryInput[] | ImagePostHistoryUncheckedCreateWithoutPostHistoryInput[]
+    connectOrCreate?: ImagePostHistoryCreateOrConnectWithoutPostHistoryInput | ImagePostHistoryCreateOrConnectWithoutPostHistoryInput[]
+    createMany?: ImagePostHistoryCreateManyPostHistoryInputEnvelope
+    connect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+  }
+
+  export type ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput = {
+    create?: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput> | ImagePostHistoryCreateWithoutPostHistoryInput[] | ImagePostHistoryUncheckedCreateWithoutPostHistoryInput[]
+    connectOrCreate?: ImagePostHistoryCreateOrConnectWithoutPostHistoryInput | ImagePostHistoryCreateOrConnectWithoutPostHistoryInput[]
+    createMany?: ImagePostHistoryCreateManyPostHistoryInputEnvelope
+    connect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+  }
+
   export type AccountUpdateOneWithoutPostHistoryNestedInput = {
     create?: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
     connectOrCreate?: AccountCreateOrConnectWithoutPostHistoryInput
@@ -6926,6 +8157,34 @@ export namespace Prisma {
     update?: XOR<XOR<PostUpdateToOneWithWhereWithoutPostHistoryInput, PostUpdateWithoutPostHistoryInput>, PostUncheckedUpdateWithoutPostHistoryInput>
   }
 
+  export type ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput = {
+    create?: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput> | ImagePostHistoryCreateWithoutPostHistoryInput[] | ImagePostHistoryUncheckedCreateWithoutPostHistoryInput[]
+    connectOrCreate?: ImagePostHistoryCreateOrConnectWithoutPostHistoryInput | ImagePostHistoryCreateOrConnectWithoutPostHistoryInput[]
+    upsert?: ImagePostHistoryUpsertWithWhereUniqueWithoutPostHistoryInput | ImagePostHistoryUpsertWithWhereUniqueWithoutPostHistoryInput[]
+    createMany?: ImagePostHistoryCreateManyPostHistoryInputEnvelope
+    set?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    disconnect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    delete?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    connect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    update?: ImagePostHistoryUpdateWithWhereUniqueWithoutPostHistoryInput | ImagePostHistoryUpdateWithWhereUniqueWithoutPostHistoryInput[]
+    updateMany?: ImagePostHistoryUpdateManyWithWhereWithoutPostHistoryInput | ImagePostHistoryUpdateManyWithWhereWithoutPostHistoryInput[]
+    deleteMany?: ImagePostHistoryScalarWhereInput | ImagePostHistoryScalarWhereInput[]
+  }
+
+  export type ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput = {
+    create?: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput> | ImagePostHistoryCreateWithoutPostHistoryInput[] | ImagePostHistoryUncheckedCreateWithoutPostHistoryInput[]
+    connectOrCreate?: ImagePostHistoryCreateOrConnectWithoutPostHistoryInput | ImagePostHistoryCreateOrConnectWithoutPostHistoryInput[]
+    upsert?: ImagePostHistoryUpsertWithWhereUniqueWithoutPostHistoryInput | ImagePostHistoryUpsertWithWhereUniqueWithoutPostHistoryInput[]
+    createMany?: ImagePostHistoryCreateManyPostHistoryInputEnvelope
+    set?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    disconnect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    delete?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    connect?: ImagePostHistoryWhereUniqueInput | ImagePostHistoryWhereUniqueInput[]
+    update?: ImagePostHistoryUpdateWithWhereUniqueWithoutPostHistoryInput | ImagePostHistoryUpdateWithWhereUniqueWithoutPostHistoryInput[]
+    updateMany?: ImagePostHistoryUpdateManyWithWhereWithoutPostHistoryInput | ImagePostHistoryUpdateManyWithWhereWithoutPostHistoryInput[]
+    deleteMany?: ImagePostHistoryScalarWhereInput | ImagePostHistoryScalarWhereInput[]
+  }
+
   export type PostCreateNestedOneWithoutImageInput = {
     create?: XOR<PostCreateWithoutImageInput, PostUncheckedCreateWithoutImageInput>
     connectOrCreate?: PostCreateOrConnectWithoutImageInput
@@ -6938,6 +8197,20 @@ export namespace Prisma {
     upsert?: PostUpsertWithoutImageInput
     connect?: PostWhereUniqueInput
     update?: XOR<XOR<PostUpdateToOneWithWhereWithoutImageInput, PostUpdateWithoutImageInput>, PostUncheckedUpdateWithoutImageInput>
+  }
+
+  export type PostHistoryCreateNestedOneWithoutImagePostHistoryInput = {
+    create?: XOR<PostHistoryCreateWithoutImagePostHistoryInput, PostHistoryUncheckedCreateWithoutImagePostHistoryInput>
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutImagePostHistoryInput
+    connect?: PostHistoryWhereUniqueInput
+  }
+
+  export type PostHistoryUpdateOneRequiredWithoutImagePostHistoryNestedInput = {
+    create?: XOR<PostHistoryCreateWithoutImagePostHistoryInput, PostHistoryUncheckedCreateWithoutImagePostHistoryInput>
+    connectOrCreate?: PostHistoryCreateOrConnectWithoutImagePostHistoryInput
+    upsert?: PostHistoryUpsertWithoutImagePostHistoryInput
+    connect?: PostHistoryWhereUniqueInput
+    update?: XOR<XOR<PostHistoryUpdateToOneWithWhereWithoutImagePostHistoryInput, PostHistoryUpdateWithoutImagePostHistoryInput>, PostHistoryUncheckedUpdateWithoutImagePostHistoryInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7178,6 +8451,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     status?: string | null
     Post?: PostCreateNestedOneWithoutPostHistoryInput
+    ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryUncheckedCreateWithoutAccountInput = {
@@ -7188,6 +8462,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryCreateOrConnectWithoutAccountInput = {
@@ -7278,6 +8553,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     status?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
+    ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryUncheckedCreateWithoutPostInput = {
@@ -7288,6 +8564,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
   export type PostHistoryCreateOrConnectWithoutPostInput = {
@@ -7542,6 +8819,28 @@ export namespace Prisma {
     create: XOR<PostCreateWithoutPostHistoryInput, PostUncheckedCreateWithoutPostHistoryInput>
   }
 
+  export type ImagePostHistoryCreateWithoutPostHistoryInput = {
+    imagePostHistoryId?: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ImagePostHistoryUncheckedCreateWithoutPostHistoryInput = {
+    imagePostHistoryId?: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ImagePostHistoryCreateOrConnectWithoutPostHistoryInput = {
+    where: ImagePostHistoryWhereUniqueInput
+    create: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput>
+  }
+
+  export type ImagePostHistoryCreateManyPostHistoryInputEnvelope = {
+    data: ImagePostHistoryCreateManyPostHistoryInput | ImagePostHistoryCreateManyPostHistoryInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithoutPostHistoryInput = {
     update: XOR<AccountUpdateWithoutPostHistoryInput, AccountUncheckedUpdateWithoutPostHistoryInput>
     create: XOR<AccountCreateWithoutPostHistoryInput, AccountUncheckedCreateWithoutPostHistoryInput>
@@ -7642,6 +8941,32 @@ export namespace Prisma {
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     Image?: ImageUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type ImagePostHistoryUpsertWithWhereUniqueWithoutPostHistoryInput = {
+    where: ImagePostHistoryWhereUniqueInput
+    update: XOR<ImagePostHistoryUpdateWithoutPostHistoryInput, ImagePostHistoryUncheckedUpdateWithoutPostHistoryInput>
+    create: XOR<ImagePostHistoryCreateWithoutPostHistoryInput, ImagePostHistoryUncheckedCreateWithoutPostHistoryInput>
+  }
+
+  export type ImagePostHistoryUpdateWithWhereUniqueWithoutPostHistoryInput = {
+    where: ImagePostHistoryWhereUniqueInput
+    data: XOR<ImagePostHistoryUpdateWithoutPostHistoryInput, ImagePostHistoryUncheckedUpdateWithoutPostHistoryInput>
+  }
+
+  export type ImagePostHistoryUpdateManyWithWhereWithoutPostHistoryInput = {
+    where: ImagePostHistoryScalarWhereInput
+    data: XOR<ImagePostHistoryUpdateManyMutationInput, ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryInput>
+  }
+
+  export type ImagePostHistoryScalarWhereInput = {
+    AND?: ImagePostHistoryScalarWhereInput | ImagePostHistoryScalarWhereInput[]
+    OR?: ImagePostHistoryScalarWhereInput[]
+    NOT?: ImagePostHistoryScalarWhereInput | ImagePostHistoryScalarWhereInput[]
+    imagePostHistoryId?: StringFilter<"ImagePostHistory"> | string
+    postHistoryId?: StringFilter<"ImagePostHistory"> | string
+    imageUrl?: StringNullableFilter<"ImagePostHistory"> | string | null
+    createdAt?: DateTimeFilter<"ImagePostHistory"> | Date | string
   }
 
   export type PostCreateWithoutImageInput = {
@@ -7748,6 +9073,66 @@ export namespace Prisma {
     PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
   }
 
+  export type PostHistoryCreateWithoutImagePostHistoryInput = {
+    postHistoryId?: string
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string | null
+    Account?: AccountCreateNestedOneWithoutPostHistoryInput
+    Post?: PostCreateNestedOneWithoutPostHistoryInput
+  }
+
+  export type PostHistoryUncheckedCreateWithoutImagePostHistoryInput = {
+    postHistoryId?: string
+    accountId?: string | null
+    postId?: string | null
+    isCancel?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string | null
+  }
+
+  export type PostHistoryCreateOrConnectWithoutImagePostHistoryInput = {
+    where: PostHistoryWhereUniqueInput
+    create: XOR<PostHistoryCreateWithoutImagePostHistoryInput, PostHistoryUncheckedCreateWithoutImagePostHistoryInput>
+  }
+
+  export type PostHistoryUpsertWithoutImagePostHistoryInput = {
+    update: XOR<PostHistoryUpdateWithoutImagePostHistoryInput, PostHistoryUncheckedUpdateWithoutImagePostHistoryInput>
+    create: XOR<PostHistoryCreateWithoutImagePostHistoryInput, PostHistoryUncheckedCreateWithoutImagePostHistoryInput>
+    where?: PostHistoryWhereInput
+  }
+
+  export type PostHistoryUpdateToOneWithWhereWithoutImagePostHistoryInput = {
+    where?: PostHistoryWhereInput
+    data: XOR<PostHistoryUpdateWithoutImagePostHistoryInput, PostHistoryUncheckedUpdateWithoutImagePostHistoryInput>
+  }
+
+  export type PostHistoryUpdateWithoutImagePostHistoryInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    Account?: AccountUpdateOneWithoutPostHistoryNestedInput
+    Post?: PostUpdateOneWithoutPostHistoryNestedInput
+  }
+
+  export type PostHistoryUncheckedUpdateWithoutImagePostHistoryInput = {
+    postHistoryId?: StringFieldUpdateOperationsInput | string
+    accountId?: NullableStringFieldUpdateOperationsInput | string | null
+    postId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCancel?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PostCreateManyAccountInput = {
     postId?: string
     name: string
@@ -7850,6 +9235,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
+    ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryUncheckedUpdateWithoutAccountInput = {
@@ -7860,6 +9246,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryUncheckedUpdateManyWithoutAccountInput = {
@@ -7896,6 +9283,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
+    ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryUncheckedUpdateWithoutPostInput = {
@@ -7906,6 +9294,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
   export type PostHistoryUncheckedUpdateManyWithoutPostInput = {
@@ -7933,6 +9322,30 @@ export namespace Prisma {
   export type ImageUncheckedUpdateManyWithoutPostInput = {
     imageId?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryCreateManyPostHistoryInput = {
+    imagePostHistoryId?: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ImagePostHistoryUpdateWithoutPostHistoryInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryUncheckedUpdateWithoutPostHistoryInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryInput = {
+    imagePostHistoryId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
