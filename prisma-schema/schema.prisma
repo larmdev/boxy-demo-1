@@ -41,8 +41,8 @@ model Post {
     startTimeBkk String?       @db.VarChar(100)
     endDateBkk   String?       @db.VarChar(100)
     endTimeBkk   String?       @db.VarChar(100)
-    Type         String?       @db.VarChar(100)
-    Limit        Int           @default(0)
+    type         String?       @db.VarChar(100)
+    limit        Int           @default(0)
     isLimit      Boolean       @default(false)
     startPostBkk Int?
     endPostBkk   Int?
@@ -60,7 +60,7 @@ model PostHistory {
     createdAt     DateTime @default(now()) @db.DateTime(0)
     updatedAt     DateTime @updatedAt @db.DateTime(0)
     status        String?  @db.VarChar(100)
-    Details       String?  @db.VarChar(2000)
+    details       String?  @db.VarChar(2000)
     Account       Account? @relation(fields: [accountId], references: [accountId])
     Post          Post?    @relation(fields: [postId], references: [postId])
     ImagePostHistory    ImagePostHistory[]

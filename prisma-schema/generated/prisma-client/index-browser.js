@@ -136,8 +136,8 @@ exports.Prisma.PostScalarFieldEnum = {
   startTimeBkk: 'startTimeBkk',
   endDateBkk: 'endDateBkk',
   endTimeBkk: 'endTimeBkk',
-  Type: 'Type',
-  Limit: 'Limit',
+  type: 'type',
+  limit: 'limit',
   isLimit: 'isLimit',
   startPostBkk: 'startPostBkk',
   endPostBkk: 'endPostBkk'
@@ -152,7 +152,7 @@ exports.Prisma.PostHistoryScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   status: 'status',
-  Details: 'Details'
+  details: 'details'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {

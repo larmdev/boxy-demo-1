@@ -45,7 +45,8 @@ async function getPostSignUpManage(postId, size, page, isActive, accountId) {
                         branch: true
                     }
                 },
-                Post: true
+                Post: true,
+                ImagePostHistory: true
             }
         })
 
@@ -104,7 +105,88 @@ async function approve(accountId, postHistoryId, isActive) {
     }
 }
 
+async function getPostSignUpManageById(postHistoryId) {
+    
+    try {
+        const conditions = {
+            postHistoryId: postHistoryId,
+        };
+
+        const posts = await readClient.postHistory.findFirst({
+            where: conditions,
+            skip: offset,
+			take: limit,
+            orderBy: {
+                createdAt: 'asc'
+            },
+            include: {
+                Account: {
+                    select: {
+                        username: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        faculty: true,
+                        branch: true
+                    }
+                },
+                Post: true,
+                ImagePostHistory: true
+            }
+        })
+
+        return {
+            code: Response.Success.code,
+            message: Response.Success.message,
+            data: posts
+        }
+    } catch (error) {
+        console.log('error', error);
+        return error;
+    }
+}
+
+async function UpdatePostSignUpManageById(postHistoryId) {
+    
+    try {
+        const postHistoryExit = await readClient.postHistory.findFirst({
+            where: {
+                postHistoryId: postHistoryId
+            }
+        });
+
+        if (!postHistoryExit) {
+            return {
+                code: Response.BadRequest.code,
+                message: Response.BadRequest.message,
+            }
+        }
+
+        const updated = await readClient.postHistory.update({
+            where: {
+                postHistoryId: postHistoryId,
+            },
+            data: {
+                isActive: isActive,
+                status: Status.complete
+            }
+        })
+
+        return {
+            code: Response.CreatedSuccess.code,
+            message: Response.CreatedSuccess.message,
+            postId: updated.postId
+        }
+
+    } catch (error) {
+        console.log('error', error);
+        return error;
+    }
+}
+
 module.exports = {
     getPostSignUpManage,
     approve,
+    getPostSignUpManageById,
+    UpdatePostSignUpManageById
 }

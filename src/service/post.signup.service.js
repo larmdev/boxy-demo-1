@@ -1,5 +1,6 @@
 const { readClient, writeClient } = require('../prisma/client.js');
 const { Response } = require('../constants/response.js');
+const { Status } = require('../constants/status.js');
 const { generateToken, sha512 } = require('../utils/crypto.utils.js');
 const { signAccessToken } = require('../utils/jwt.utils.js');
 
@@ -33,7 +34,8 @@ async function getPostSignUp(accountId, size, page, keyword) {
                         branch: true
                     }
                 },
-                Post: true
+                Post: true,
+                ImagePostHistory: true
             }
         })
 
@@ -147,8 +149,103 @@ async function updatePostSignUp(accountId, postId) {
     }
 }
 
+async function getPostSignUpHistoryById(postHistoryId) {
+    
+    try {
+        const conditions = {
+            postHistoryId: postHistoryId,
+        };
+
+        const posts = await readClient.postHistory.findFirst({
+            where: conditions,
+            skip: offset,
+			take: limit,
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                Account: {
+                    select: {
+                        username: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        faculty: true,
+                        branch: true
+                    }
+                },
+                Post: true,
+                ImagePostHistory: true
+            }
+        })
+
+        return {
+            code: Response.Success.code,
+            message: Response.Success.message,
+            data: posts
+        }
+
+    } catch (error) {
+        return error;
+    }
+}
+
+async function sendPostSignUpHistoryById(dto) {
+    
+    try {
+        const conditions = {
+            postHistoryId: dto.postHistoryId,
+        };
+
+        const postHistory = await readClient.postHistory.findFirst({
+            where: conditions,
+        })
+
+        if (!postHistory) {
+            return {
+                code: Response.BadRequest.code,
+                message: Response.BadRequest.message,
+            }
+        }
+
+        await readClient.postHistory.update({
+            where: conditions,
+            data: { 
+                details: dto.details,
+                status: Status.pending
+            }
+        })
+
+        // create image post history
+
+        const imagePayload = [];
+
+        for(let i=0; i < dto.images.length; i++ ) {
+            imagePayload.push({
+                postHistoryId: dto.postHistoryId,
+                imageUrl: dto.images[i].imageUrl
+            })
+        }
+
+        const createImage = await readClient.imagePostHistory.createMany({
+            data: imagePayload
+        })
+        
+        return {
+            code: Response.Success.code,
+            message: Response.Success.message,
+            data: posts
+        }
+
+    } catch (error) {
+        return error;
+    }
+}
+
 module.exports = {
     getPostSignUp,
     createPostSignUp,
     updatePostSignUp,
+    getPostSignUpHistoryById,
+    sendPostSignUpHistoryById
 }

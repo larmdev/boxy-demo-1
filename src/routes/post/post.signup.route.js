@@ -13,6 +13,12 @@ router.get('/', VerifyToken, async (req, res) => {
     return res.json(result);
 });
 
+router.get('/:postHistoryId', VerifyToken, async (req, res) => {
+    const accountId = req.context.accountId;
+    const result = await postSignUpServices.getPostSignUpHistoryById(postHistoryId);
+    return res.json(result);
+});
+
 router.put('/:postId', VerifyToken, async (req, res) => {
     const accountId = req.context.accountId;
     const postId = req.params.postId;

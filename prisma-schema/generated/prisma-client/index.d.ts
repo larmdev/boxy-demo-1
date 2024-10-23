@@ -63,8 +63,8 @@ export type PostPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
     startTimeBkk: string | null
     endDateBkk: string | null
     endTimeBkk: string | null
-    Type: string | null
-    Limit: number
+    type: string | null
+    limit: number
     isLimit: boolean
     startPostBkk: number | null
     endPostBkk: number | null
@@ -93,7 +93,7 @@ export type PostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.De
     createdAt: Date
     updatedAt: Date
     status: string | null
-    Details: string | null
+    details: string | null
   }, ExtArgs["result"]["postHistory"]>
   composites: {}
 }
@@ -2490,14 +2490,14 @@ export namespace Prisma {
 
   export type PostAvgAggregateOutputType = {
     point: number | null
-    Limit: number | null
+    limit: number | null
     startPostBkk: number | null
     endPostBkk: number | null
   }
 
   export type PostSumAggregateOutputType = {
     point: number | null
-    Limit: number | null
+    limit: number | null
     startPostBkk: number | null
     endPostBkk: number | null
   }
@@ -2516,8 +2516,8 @@ export namespace Prisma {
     startTimeBkk: string | null
     endDateBkk: string | null
     endTimeBkk: string | null
-    Type: string | null
-    Limit: number | null
+    type: string | null
+    limit: number | null
     isLimit: boolean | null
     startPostBkk: number | null
     endPostBkk: number | null
@@ -2537,8 +2537,8 @@ export namespace Prisma {
     startTimeBkk: string | null
     endDateBkk: string | null
     endTimeBkk: string | null
-    Type: string | null
-    Limit: number | null
+    type: string | null
+    limit: number | null
     isLimit: boolean | null
     startPostBkk: number | null
     endPostBkk: number | null
@@ -2558,8 +2558,8 @@ export namespace Prisma {
     startTimeBkk: number
     endDateBkk: number
     endTimeBkk: number
-    Type: number
-    Limit: number
+    type: number
+    limit: number
     isLimit: number
     startPostBkk: number
     endPostBkk: number
@@ -2569,14 +2569,14 @@ export namespace Prisma {
 
   export type PostAvgAggregateInputType = {
     point?: true
-    Limit?: true
+    limit?: true
     startPostBkk?: true
     endPostBkk?: true
   }
 
   export type PostSumAggregateInputType = {
     point?: true
-    Limit?: true
+    limit?: true
     startPostBkk?: true
     endPostBkk?: true
   }
@@ -2595,8 +2595,8 @@ export namespace Prisma {
     startTimeBkk?: true
     endDateBkk?: true
     endTimeBkk?: true
-    Type?: true
-    Limit?: true
+    type?: true
+    limit?: true
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
@@ -2616,8 +2616,8 @@ export namespace Prisma {
     startTimeBkk?: true
     endDateBkk?: true
     endTimeBkk?: true
-    Type?: true
-    Limit?: true
+    type?: true
+    limit?: true
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
@@ -2637,8 +2637,8 @@ export namespace Prisma {
     startTimeBkk?: true
     endDateBkk?: true
     endTimeBkk?: true
-    Type?: true
-    Limit?: true
+    type?: true
+    limit?: true
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
@@ -2746,8 +2746,8 @@ export namespace Prisma {
     startTimeBkk: string | null
     endDateBkk: string | null
     endTimeBkk: string | null
-    Type: string | null
-    Limit: number
+    type: string | null
+    limit: number
     isLimit: boolean
     startPostBkk: number | null
     endPostBkk: number | null
@@ -2786,8 +2786,8 @@ export namespace Prisma {
     startTimeBkk?: boolean
     endDateBkk?: boolean
     endTimeBkk?: boolean
-    Type?: boolean
-    Limit?: boolean
+    type?: boolean
+    limit?: boolean
     isLimit?: boolean
     startPostBkk?: boolean
     endPostBkk?: boolean
@@ -2811,8 +2811,8 @@ export namespace Prisma {
     startTimeBkk?: boolean
     endDateBkk?: boolean
     endTimeBkk?: boolean
-    Type?: boolean
-    Limit?: boolean
+    type?: boolean
+    limit?: boolean
     isLimit?: boolean
     startPostBkk?: boolean
     endPostBkk?: boolean
@@ -3246,8 +3246,8 @@ export namespace Prisma {
     readonly startTimeBkk: FieldRef<"Post", 'String'>
     readonly endDateBkk: FieldRef<"Post", 'String'>
     readonly endTimeBkk: FieldRef<"Post", 'String'>
-    readonly Type: FieldRef<"Post", 'String'>
-    readonly Limit: FieldRef<"Post", 'Int'>
+    readonly type: FieldRef<"Post", 'String'>
+    readonly limit: FieldRef<"Post", 'Int'>
     readonly isLimit: FieldRef<"Post", 'Boolean'>
     readonly startPostBkk: FieldRef<"Post", 'Int'>
     readonly endPostBkk: FieldRef<"Post", 'Int'>
@@ -3656,7 +3656,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     status: string | null
-    Details: string | null
+    details: string | null
   }
 
   export type PostHistoryMaxAggregateOutputType = {
@@ -3668,7 +3668,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     status: string | null
-    Details: string | null
+    details: string | null
   }
 
   export type PostHistoryCountAggregateOutputType = {
@@ -3680,7 +3680,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     status: number
-    Details: number
+    details: number
     _all: number
   }
 
@@ -3694,7 +3694,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
-    Details?: true
+    details?: true
   }
 
   export type PostHistoryMaxAggregateInputType = {
@@ -3706,7 +3706,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
-    Details?: true
+    details?: true
   }
 
   export type PostHistoryCountAggregateInputType = {
@@ -3718,7 +3718,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
-    Details?: true
+    details?: true
     _all?: true
   }
 
@@ -3804,7 +3804,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     status: string | null
-    Details: string | null
+    details: string | null
     _count: PostHistoryCountAggregateOutputType | null
     _min: PostHistoryMinAggregateOutputType | null
     _max: PostHistoryMaxAggregateOutputType | null
@@ -3833,7 +3833,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean
-    Details?: boolean
+    details?: boolean
     Account?: boolean | PostHistory$AccountArgs<ExtArgs>
     Post?: boolean | PostHistory$PostArgs<ExtArgs>
     ImagePostHistory?: boolean | PostHistory$ImagePostHistoryArgs<ExtArgs>
@@ -3849,7 +3849,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean
-    Details?: boolean
+    details?: boolean
   }
 
   export type PostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -4275,7 +4275,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"PostHistory", 'DateTime'>
     readonly updatedAt: FieldRef<"PostHistory", 'DateTime'>
     readonly status: FieldRef<"PostHistory", 'String'>
-    readonly Details: FieldRef<"PostHistory", 'String'>
+    readonly details: FieldRef<"PostHistory", 'String'>
   }
     
 
@@ -6518,8 +6518,8 @@ export namespace Prisma {
     startTimeBkk: 'startTimeBkk',
     endDateBkk: 'endDateBkk',
     endTimeBkk: 'endTimeBkk',
-    Type: 'Type',
-    Limit: 'Limit',
+    type: 'type',
+    limit: 'limit',
     isLimit: 'isLimit',
     startPostBkk: 'startPostBkk',
     endPostBkk: 'endPostBkk'
@@ -6537,7 +6537,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     status: 'status',
-    Details: 'Details'
+    details: 'details'
   };
 
   export type PostHistoryScalarFieldEnum = (typeof PostHistoryScalarFieldEnum)[keyof typeof PostHistoryScalarFieldEnum]
@@ -6742,8 +6742,8 @@ export namespace Prisma {
     startTimeBkk?: StringNullableFilter<"Post"> | string | null
     endDateBkk?: StringNullableFilter<"Post"> | string | null
     endTimeBkk?: StringNullableFilter<"Post"> | string | null
-    Type?: StringNullableFilter<"Post"> | string | null
-    Limit?: IntFilter<"Post"> | number
+    type?: StringNullableFilter<"Post"> | string | null
+    limit?: IntFilter<"Post"> | number
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
@@ -6766,8 +6766,8 @@ export namespace Prisma {
     startTimeBkk?: SortOrderInput | SortOrder
     endDateBkk?: SortOrderInput | SortOrder
     endTimeBkk?: SortOrderInput | SortOrder
-    Type?: SortOrderInput | SortOrder
-    Limit?: SortOrder
+    type?: SortOrderInput | SortOrder
+    limit?: SortOrder
     isLimit?: SortOrder
     startPostBkk?: SortOrderInput | SortOrder
     endPostBkk?: SortOrderInput | SortOrder
@@ -6793,8 +6793,8 @@ export namespace Prisma {
     startTimeBkk?: StringNullableFilter<"Post"> | string | null
     endDateBkk?: StringNullableFilter<"Post"> | string | null
     endTimeBkk?: StringNullableFilter<"Post"> | string | null
-    Type?: StringNullableFilter<"Post"> | string | null
-    Limit?: IntFilter<"Post"> | number
+    type?: StringNullableFilter<"Post"> | string | null
+    limit?: IntFilter<"Post"> | number
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
@@ -6817,8 +6817,8 @@ export namespace Prisma {
     startTimeBkk?: SortOrderInput | SortOrder
     endDateBkk?: SortOrderInput | SortOrder
     endTimeBkk?: SortOrderInput | SortOrder
-    Type?: SortOrderInput | SortOrder
-    Limit?: SortOrder
+    type?: SortOrderInput | SortOrder
+    limit?: SortOrder
     isLimit?: SortOrder
     startPostBkk?: SortOrderInput | SortOrder
     endPostBkk?: SortOrderInput | SortOrder
@@ -6846,8 +6846,8 @@ export namespace Prisma {
     startTimeBkk?: StringNullableWithAggregatesFilter<"Post"> | string | null
     endDateBkk?: StringNullableWithAggregatesFilter<"Post"> | string | null
     endTimeBkk?: StringNullableWithAggregatesFilter<"Post"> | string | null
-    Type?: StringNullableWithAggregatesFilter<"Post"> | string | null
-    Limit?: IntWithAggregatesFilter<"Post"> | number
+    type?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    limit?: IntWithAggregatesFilter<"Post"> | number
     isLimit?: BoolWithAggregatesFilter<"Post"> | boolean
     startPostBkk?: IntNullableWithAggregatesFilter<"Post"> | number | null
     endPostBkk?: IntNullableWithAggregatesFilter<"Post"> | number | null
@@ -6865,7 +6865,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
-    Details?: StringNullableFilter<"PostHistory"> | string | null
+    details?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
     ImagePostHistory?: ImagePostHistoryListRelationFilter
@@ -6880,7 +6880,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrderInput | SortOrder
-    Details?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
     Account?: AccountOrderByWithRelationInput
     Post?: PostOrderByWithRelationInput
     ImagePostHistory?: ImagePostHistoryOrderByRelationAggregateInput
@@ -6898,7 +6898,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
-    Details?: StringNullableFilter<"PostHistory"> | string | null
+    details?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
     ImagePostHistory?: ImagePostHistoryListRelationFilter
@@ -6913,7 +6913,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrderInput | SortOrder
-    Details?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
     _count?: PostHistoryCountOrderByAggregateInput
     _max?: PostHistoryMaxOrderByAggregateInput
     _min?: PostHistoryMinOrderByAggregateInput
@@ -6931,7 +6931,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
     status?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
-    Details?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
+    details?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -7174,8 +7174,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -7198,8 +7198,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -7220,8 +7220,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7244,8 +7244,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7267,8 +7267,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -7287,8 +7287,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7308,8 +7308,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -7322,7 +7322,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
@@ -7337,7 +7337,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -7348,7 +7348,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
@@ -7363,7 +7363,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -7376,7 +7376,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
   }
 
   export type PostHistoryUpdateManyMutationInput = {
@@ -7386,7 +7386,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryUncheckedUpdateManyInput = {
@@ -7398,7 +7398,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -7724,8 +7724,8 @@ export namespace Prisma {
     startTimeBkk?: SortOrder
     endDateBkk?: SortOrder
     endTimeBkk?: SortOrder
-    Type?: SortOrder
-    Limit?: SortOrder
+    type?: SortOrder
+    limit?: SortOrder
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
@@ -7733,7 +7733,7 @@ export namespace Prisma {
 
   export type PostAvgOrderByAggregateInput = {
     point?: SortOrder
-    Limit?: SortOrder
+    limit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
   }
@@ -7752,8 +7752,8 @@ export namespace Prisma {
     startTimeBkk?: SortOrder
     endDateBkk?: SortOrder
     endTimeBkk?: SortOrder
-    Type?: SortOrder
-    Limit?: SortOrder
+    type?: SortOrder
+    limit?: SortOrder
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
@@ -7773,8 +7773,8 @@ export namespace Prisma {
     startTimeBkk?: SortOrder
     endDateBkk?: SortOrder
     endTimeBkk?: SortOrder
-    Type?: SortOrder
-    Limit?: SortOrder
+    type?: SortOrder
+    limit?: SortOrder
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
@@ -7782,7 +7782,7 @@ export namespace Prisma {
 
   export type PostSumOrderByAggregateInput = {
     point?: SortOrder
-    Limit?: SortOrder
+    limit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
   }
@@ -7843,7 +7843,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
-    Details?: SortOrder
+    details?: SortOrder
   }
 
   export type PostHistoryMaxOrderByAggregateInput = {
@@ -7855,7 +7855,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
-    Details?: SortOrder
+    details?: SortOrder
   }
 
   export type PostHistoryMinOrderByAggregateInput = {
@@ -7867,7 +7867,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
-    Details?: SortOrder
+    details?: SortOrder
   }
 
   export type PostRelationFilter = {
@@ -8429,8 +8429,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -8451,8 +8451,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -8477,7 +8477,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     Post?: PostCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
@@ -8490,7 +8490,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -8537,8 +8537,8 @@ export namespace Prisma {
     startTimeBkk?: StringNullableFilter<"Post"> | string | null
     endDateBkk?: StringNullableFilter<"Post"> | string | null
     endTimeBkk?: StringNullableFilter<"Post"> | string | null
-    Type?: StringNullableFilter<"Post"> | string | null
-    Limit?: IntFilter<"Post"> | number
+    type?: StringNullableFilter<"Post"> | string | null
+    limit?: IntFilter<"Post"> | number
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
@@ -8572,7 +8572,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
-    Details?: StringNullableFilter<"PostHistory"> | string | null
+    details?: StringNullableFilter<"PostHistory"> | string | null
   }
 
   export type PostHistoryCreateWithoutPostInput = {
@@ -8582,7 +8582,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
@@ -8595,7 +8595,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -8815,8 +8815,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -8838,8 +8838,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -8944,8 +8944,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -8967,8 +8967,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9014,8 +9014,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -9037,8 +9037,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -9074,8 +9074,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9097,8 +9097,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9112,7 +9112,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
   }
@@ -9126,7 +9126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
   }
 
   export type PostHistoryCreateOrConnectWithoutImagePostHistoryInput = {
@@ -9152,7 +9152,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
   }
@@ -9166,7 +9166,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostCreateManyAccountInput = {
@@ -9182,8 +9182,8 @@ export namespace Prisma {
     startTimeBkk?: string | null
     endDateBkk?: string | null
     endTimeBkk?: string | null
-    Type?: string | null
-    Limit?: number
+    type?: string | null
+    limit?: number
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
@@ -9197,7 +9197,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
   }
 
   export type PostUpdateWithoutAccountInput = {
@@ -9213,8 +9213,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9235,8 +9235,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9257,8 +9257,8 @@ export namespace Prisma {
     startTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endDateBkk?: NullableStringFieldUpdateOperationsInput | string | null
     endTimeBkk?: NullableStringFieldUpdateOperationsInput | string | null
-    Type?: NullableStringFieldUpdateOperationsInput | string | null
-    Limit?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    limit?: IntFieldUpdateOperationsInput | number
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9271,7 +9271,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
@@ -9284,7 +9284,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -9296,7 +9296,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryCreateManyPostInput = {
@@ -9307,7 +9307,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
-    Details?: string | null
+    details?: string | null
   }
 
   export type ImageCreateManyPostInput = {
@@ -9323,7 +9323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
@@ -9336,7 +9336,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -9348,7 +9348,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    Details?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpdateWithoutPostInput = {
