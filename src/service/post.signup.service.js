@@ -223,14 +223,14 @@ async function sendPostSignUpHistoryById(dto) {
         for(let i=0; i < dto.images.length; i++ ) {
             imagePayload.push({
                 postHistoryId: dto.postHistoryId,
-                imageUrl: dto.images[i].imageUrl
+                imageUrl: dto.images[i]
             })
         }
 
         const createImage = await readClient.imagePostHistory.createMany({
             data: imagePayload
         })
-        
+
         return {
             code: Response.Success.code,
             message: Response.Success.message,
