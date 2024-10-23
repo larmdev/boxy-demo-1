@@ -90,10 +90,10 @@ async function createPostSignUp(accountId, postId) {
         }
 
         const historyCount = await readClient.postHistory.count({
-            data: {postId: postId}
+            where: { postId: postId }
         });
 
-        if (postLimit.isLimit && postLimit.limit >= historyCount) {
+        if (postLimit.isLimit && postLimit.limit < historyCount) {
             return {
                 code: Response.BadRequest.code,
                 message: "เกินจำนวนที่สมัคร"
