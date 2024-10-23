@@ -58,6 +58,17 @@ async function getPostSignUp(accountId, size, page, keyword) {
 async function createPostSignUp(accountId, postId) {
     try {
 
+        const postLimit = await readClient.post.findFirst({
+            where: { postId: postId }
+        });
+
+        if (postLimit == null) {
+            return {
+                code: Response.BadRequest.code,
+                message: Response.BadRequest.message,
+            }
+        }
+
         const payload = {
             accountId: accountId,
             postId: postId,
@@ -73,6 +84,17 @@ async function createPostSignUp(accountId, postId) {
                 code: Response.CreatedSuccess.code,
                 message: Response.CreatedSuccess.message,
                 postId: postExit.postId
+            }
+        }
+
+        const historyCount = await readClient.postHistory.count({
+            data: {postId: postId}
+        });
+
+        if (postLimit.isLimit && postLimit.Limit >= historyCount) {
+            return {
+                code: Response.BadRequest.code,
+                message: "เกินจำนวนที่สมัคร"
             }
         }
 

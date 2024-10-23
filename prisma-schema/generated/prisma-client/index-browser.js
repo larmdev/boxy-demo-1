@@ -136,6 +136,9 @@ exports.Prisma.PostScalarFieldEnum = {
   startTimeBkk: 'startTimeBkk',
   endDateBkk: 'endDateBkk',
   endTimeBkk: 'endTimeBkk',
+  Type: 'Type',
+  Limit: 'Limit',
+  isLimit: 'isLimit',
   startPostBkk: 'startPostBkk',
   endPostBkk: 'endPostBkk'
 };

@@ -41,6 +41,9 @@ model Post {
     startTimeBkk String?       @db.VarChar(100)
     endDateBkk   String?       @db.VarChar(100)
     endTimeBkk   String?       @db.VarChar(100)
+    Type         String?       @db.VarChar(100)
+    Limit        Int           @default(0)
+    isLimit      Boolean       @default(false)
     startPostBkk Int?
     endPostBkk   Int?
     PostHistory  PostHistory[]
