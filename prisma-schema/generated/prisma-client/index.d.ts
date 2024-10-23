@@ -93,6 +93,7 @@ export type PostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.De
     createdAt: Date
     updatedAt: Date
     status: string | null
+    Details: string | null
   }, ExtArgs["result"]["postHistory"]>
   composites: {}
 }
@@ -3655,6 +3656,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     status: string | null
+    Details: string | null
   }
 
   export type PostHistoryMaxAggregateOutputType = {
@@ -3666,6 +3668,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     status: string | null
+    Details: string | null
   }
 
   export type PostHistoryCountAggregateOutputType = {
@@ -3677,6 +3680,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     status: number
+    Details: number
     _all: number
   }
 
@@ -3690,6 +3694,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
+    Details?: true
   }
 
   export type PostHistoryMaxAggregateInputType = {
@@ -3701,6 +3706,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
+    Details?: true
   }
 
   export type PostHistoryCountAggregateInputType = {
@@ -3712,6 +3718,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     status?: true
+    Details?: true
     _all?: true
   }
 
@@ -3797,6 +3804,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     status: string | null
+    Details: string | null
     _count: PostHistoryCountAggregateOutputType | null
     _min: PostHistoryMinAggregateOutputType | null
     _max: PostHistoryMaxAggregateOutputType | null
@@ -3825,6 +3833,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean
+    Details?: boolean
     Account?: boolean | PostHistory$AccountArgs<ExtArgs>
     Post?: boolean | PostHistory$PostArgs<ExtArgs>
     ImagePostHistory?: boolean | PostHistory$ImagePostHistoryArgs<ExtArgs>
@@ -3840,6 +3849,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean
+    Details?: boolean
   }
 
   export type PostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -4265,6 +4275,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"PostHistory", 'DateTime'>
     readonly updatedAt: FieldRef<"PostHistory", 'DateTime'>
     readonly status: FieldRef<"PostHistory", 'String'>
+    readonly Details: FieldRef<"PostHistory", 'String'>
   }
     
 
@@ -6525,7 +6536,8 @@ export namespace Prisma {
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    status: 'status'
+    status: 'status',
+    Details: 'Details'
   };
 
   export type PostHistoryScalarFieldEnum = (typeof PostHistoryScalarFieldEnum)[keyof typeof PostHistoryScalarFieldEnum]
@@ -6853,6 +6865,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
+    Details?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
     ImagePostHistory?: ImagePostHistoryListRelationFilter
@@ -6867,6 +6880,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrderInput | SortOrder
+    Details?: SortOrderInput | SortOrder
     Account?: AccountOrderByWithRelationInput
     Post?: PostOrderByWithRelationInput
     ImagePostHistory?: ImagePostHistoryOrderByRelationAggregateInput
@@ -6884,6 +6898,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
+    Details?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
     ImagePostHistory?: ImagePostHistoryListRelationFilter
@@ -6898,6 +6913,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrderInput | SortOrder
+    Details?: SortOrderInput | SortOrder
     _count?: PostHistoryCountOrderByAggregateInput
     _max?: PostHistoryMaxOrderByAggregateInput
     _min?: PostHistoryMinOrderByAggregateInput
@@ -6915,6 +6931,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
     status?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
+    Details?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -7305,6 +7322,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
@@ -7319,6 +7337,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -7329,6 +7348,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
@@ -7343,6 +7363,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -7355,6 +7376,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
   }
 
   export type PostHistoryUpdateManyMutationInput = {
@@ -7364,6 +7386,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryUncheckedUpdateManyInput = {
@@ -7375,6 +7398,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -7819,6 +7843,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
+    Details?: SortOrder
   }
 
   export type PostHistoryMaxOrderByAggregateInput = {
@@ -7830,6 +7855,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
+    Details?: SortOrder
   }
 
   export type PostHistoryMinOrderByAggregateInput = {
@@ -7841,6 +7867,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: SortOrder
+    Details?: SortOrder
   }
 
   export type PostRelationFilter = {
@@ -8450,6 +8477,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     Post?: PostCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
@@ -8462,6 +8490,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -8543,6 +8572,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
     status?: StringNullableFilter<"PostHistory"> | string | null
+    Details?: StringNullableFilter<"PostHistory"> | string | null
   }
 
   export type PostHistoryCreateWithoutPostInput = {
@@ -8552,6 +8582,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     ImagePostHistory?: ImagePostHistoryCreateNestedManyWithoutPostHistoryInput
   }
@@ -8564,6 +8595,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     ImagePostHistory?: ImagePostHistoryUncheckedCreateNestedManyWithoutPostHistoryInput
   }
 
@@ -9080,6 +9112,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
   }
@@ -9093,6 +9126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
   }
 
   export type PostHistoryCreateOrConnectWithoutImagePostHistoryInput = {
@@ -9118,6 +9152,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
   }
@@ -9131,6 +9166,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostCreateManyAccountInput = {
@@ -9161,6 +9197,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
   }
 
   export type PostUpdateWithoutAccountInput = {
@@ -9234,6 +9271,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
@@ -9246,6 +9284,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -9257,6 +9296,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryCreateManyPostInput = {
@@ -9267,6 +9307,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: string | null
+    Details?: string | null
   }
 
   export type ImageCreateManyPostInput = {
@@ -9282,6 +9323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     ImagePostHistory?: ImagePostHistoryUpdateManyWithoutPostHistoryNestedInput
   }
@@ -9294,6 +9336,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
     ImagePostHistory?: ImagePostHistoryUncheckedUpdateManyWithoutPostHistoryNestedInput
   }
 
@@ -9305,6 +9348,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    Details?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpdateWithoutPostInput = {

@@ -151,7 +151,8 @@ exports.Prisma.PostHistoryScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status'
+  status: 'status',
+  Details: 'Details'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {

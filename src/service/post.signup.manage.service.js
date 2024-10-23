@@ -1,5 +1,6 @@
 const { readClient, writeClient } = require('../prisma/client.js');
 const { Response } = require('../constants/response.js');
+const { Status } = require('../constants/status.js');
 const { generateToken, sha512 } = require('../utils/crypto.utils.js');
 const { signAccessToken } = require('../utils/jwt.utils.js');
 
@@ -88,7 +89,8 @@ async function approve(accountId, postHistoryId, isActive) {
                 postHistoryId: postHistoryId,
             },
             data: {
-                isActive: isActive
+                isActive: isActive,
+                status: Status.accept
             }
         })
 
