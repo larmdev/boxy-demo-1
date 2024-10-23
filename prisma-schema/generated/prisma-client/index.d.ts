@@ -91,6 +91,7 @@ export type PostHistoryPayload<ExtArgs extends $Extensions.Args = $Extensions.De
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    status: string | null
   }, ExtArgs["result"]["postHistory"]>
   composites: {}
 }
@@ -3521,6 +3522,7 @@ export namespace Prisma {
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
   }
 
   export type PostHistoryMaxAggregateOutputType = {
@@ -3531,6 +3533,7 @@ export namespace Prisma {
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
   }
 
   export type PostHistoryCountAggregateOutputType = {
@@ -3541,6 +3544,7 @@ export namespace Prisma {
     isActive: number
     createdAt: number
     updatedAt: number
+    status: number
     _all: number
   }
 
@@ -3553,6 +3557,7 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
   }
 
   export type PostHistoryMaxAggregateInputType = {
@@ -3563,6 +3568,7 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
   }
 
   export type PostHistoryCountAggregateInputType = {
@@ -3573,6 +3579,7 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
     _all?: true
   }
 
@@ -3657,6 +3664,7 @@ export namespace Prisma {
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    status: string | null
     _count: PostHistoryCountAggregateOutputType | null
     _min: PostHistoryMinAggregateOutputType | null
     _max: PostHistoryMaxAggregateOutputType | null
@@ -3684,6 +3692,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
     Account?: boolean | PostHistory$AccountArgs<ExtArgs>
     Post?: boolean | PostHistory$PostArgs<ExtArgs>
   }, ExtArgs["result"]["postHistory"]>
@@ -3696,6 +3705,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
   }
 
   export type PostHistoryInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -4116,6 +4126,7 @@ export namespace Prisma {
     readonly isActive: FieldRef<"PostHistory", 'Boolean'>
     readonly createdAt: FieldRef<"PostHistory", 'DateTime'>
     readonly updatedAt: FieldRef<"PostHistory", 'DateTime'>
+    readonly status: FieldRef<"PostHistory", 'String'>
   }
     
 
@@ -5447,7 +5458,8 @@ export namespace Prisma {
     isCancel: 'isCancel',
     isActive: 'isActive',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    status: 'status'
   };
 
   export type PostHistoryScalarFieldEnum = (typeof PostHistoryScalarFieldEnum)[keyof typeof PostHistoryScalarFieldEnum]
@@ -5764,6 +5776,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"PostHistory"> | boolean
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+    status?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
   }
@@ -5776,6 +5789,7 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrderInput | SortOrder
     Account?: AccountOrderByWithRelationInput
     Post?: PostOrderByWithRelationInput
   }
@@ -5791,6 +5805,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"PostHistory"> | boolean
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+    status?: StringNullableFilter<"PostHistory"> | string | null
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     Post?: XOR<PostNullableRelationFilter, PostWhereInput> | null
   }, "postHistoryId">
@@ -5803,6 +5818,7 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrderInput | SortOrder
     _count?: PostHistoryCountOrderByAggregateInput
     _max?: PostHistoryMaxOrderByAggregateInput
     _min?: PostHistoryMinOrderByAggregateInput
@@ -5819,6 +5835,7 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"PostHistory"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PostHistory"> | Date | string
+    status?: StringNullableWithAggregatesFilter<"PostHistory"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -6158,6 +6175,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
     Post?: PostCreateNestedOneWithoutPostHistoryInput
   }
@@ -6170,6 +6188,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type PostHistoryUpdateInput = {
@@ -6178,6 +6197,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
   }
@@ -6190,6 +6210,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryCreateManyInput = {
@@ -6200,6 +6221,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type PostHistoryUpdateManyMutationInput = {
@@ -6208,6 +6230,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryUncheckedUpdateManyInput = {
@@ -6218,6 +6241,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -6603,6 +6627,7 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type PostHistoryMaxOrderByAggregateInput = {
@@ -6613,6 +6638,7 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type PostHistoryMinOrderByAggregateInput = {
@@ -6623,6 +6649,7 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
   }
 
   export type PostRelationFilter = {
@@ -7149,6 +7176,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
     Post?: PostCreateNestedOneWithoutPostHistoryInput
   }
 
@@ -7159,6 +7187,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type PostHistoryCreateOrConnectWithoutAccountInput = {
@@ -7238,6 +7267,7 @@ export namespace Prisma {
     isActive?: BoolFilter<"PostHistory"> | boolean
     createdAt?: DateTimeFilter<"PostHistory"> | Date | string
     updatedAt?: DateTimeFilter<"PostHistory"> | Date | string
+    status?: StringNullableFilter<"PostHistory"> | string | null
   }
 
   export type PostHistoryCreateWithoutPostInput = {
@@ -7246,6 +7276,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
     Account?: AccountCreateNestedOneWithoutPostHistoryInput
   }
 
@@ -7256,6 +7287,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type PostHistoryCreateOrConnectWithoutPostInput = {
@@ -7743,6 +7775,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type PostUpdateWithoutAccountInput = {
@@ -7815,6 +7848,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     Post?: PostUpdateOneWithoutPostHistoryNestedInput
   }
 
@@ -7825,6 +7859,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryUncheckedUpdateManyWithoutAccountInput = {
@@ -7834,6 +7869,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryCreateManyPostInput = {
@@ -7843,6 +7879,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string | null
   }
 
   export type ImageCreateManyPostInput = {
@@ -7857,6 +7894,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     Account?: AccountUpdateOneWithoutPostHistoryNestedInput
   }
 
@@ -7867,6 +7905,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostHistoryUncheckedUpdateManyWithoutPostInput = {
@@ -7876,6 +7915,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpdateWithoutPostInput = {

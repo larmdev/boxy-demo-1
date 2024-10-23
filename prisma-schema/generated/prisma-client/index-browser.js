@@ -150,7 +150,8 @@ exports.Prisma.PostHistoryScalarFieldEnum = {
   isCancel: 'isCancel',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {

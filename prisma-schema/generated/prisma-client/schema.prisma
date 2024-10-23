@@ -59,6 +59,7 @@ model PostHistory {
     isActive      Boolean  @default(false)
     createdAt     DateTime @default(now()) @db.DateTime(0)
     updatedAt     DateTime @updatedAt @db.DateTime(0)
+    status        String?  @db.VarChar(100)
     Account       Account? @relation(fields: [accountId], references: [accountId])
     Post          Post?    @relation(fields: [postId], references: [postId])
 }
