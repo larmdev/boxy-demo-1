@@ -140,7 +140,9 @@ exports.Prisma.PostScalarFieldEnum = {
   limit: 'limit',
   isLimit: 'isLimit',
   startPostBkk: 'startPostBkk',
-  endPostBkk: 'endPostBkk'
+  endPostBkk: 'endPostBkk',
+  startDate: 'startDate',
+  endDate: 'endDate'
 };
 
 exports.Prisma.PostHistoryScalarFieldEnum = {

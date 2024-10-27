@@ -46,6 +46,8 @@ model Post {
     isLimit      Boolean       @default(false)
     startPostBkk Int?
     endPostBkk   Int?
+    startDate    DateTime?      @default(now())
+    endDate      DateTime?      @default(now())
     PostHistory  PostHistory[]
     Image        Image[]
     Account      Account?      @relation(fields: [accountId], references: [accountId])

@@ -68,6 +68,8 @@ export type PostPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
     isLimit: boolean
     startPostBkk: number | null
     endPostBkk: number | null
+    startDate: Date | null
+    endDate: Date | null
   }, ExtArgs["result"]["post"]>
   composites: {}
 }
@@ -2521,6 +2523,8 @@ export namespace Prisma {
     isLimit: boolean | null
     startPostBkk: number | null
     endPostBkk: number | null
+    startDate: Date | null
+    endDate: Date | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -2542,6 +2546,8 @@ export namespace Prisma {
     isLimit: boolean | null
     startPostBkk: number | null
     endPostBkk: number | null
+    startDate: Date | null
+    endDate: Date | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -2563,6 +2569,8 @@ export namespace Prisma {
     isLimit: number
     startPostBkk: number
     endPostBkk: number
+    startDate: number
+    endDate: number
     _all: number
   }
 
@@ -2600,6 +2608,8 @@ export namespace Prisma {
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
+    startDate?: true
+    endDate?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -2621,6 +2631,8 @@ export namespace Prisma {
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
+    startDate?: true
+    endDate?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -2642,6 +2654,8 @@ export namespace Prisma {
     isLimit?: true
     startPostBkk?: true
     endPostBkk?: true
+    startDate?: true
+    endDate?: true
     _all?: true
   }
 
@@ -2751,6 +2765,8 @@ export namespace Prisma {
     isLimit: boolean
     startPostBkk: number | null
     endPostBkk: number | null
+    startDate: Date | null
+    endDate: Date | null
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -2791,6 +2807,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: boolean
     endPostBkk?: boolean
+    startDate?: boolean
+    endDate?: boolean
     PostHistory?: boolean | Post$PostHistoryArgs<ExtArgs>
     Image?: boolean | Post$ImageArgs<ExtArgs>
     Account?: boolean | Post$AccountArgs<ExtArgs>
@@ -2816,6 +2834,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: boolean
     endPostBkk?: boolean
+    startDate?: boolean
+    endDate?: boolean
   }
 
   export type PostInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -3251,6 +3271,8 @@ export namespace Prisma {
     readonly isLimit: FieldRef<"Post", 'Boolean'>
     readonly startPostBkk: FieldRef<"Post", 'Int'>
     readonly endPostBkk: FieldRef<"Post", 'Int'>
+    readonly startDate: FieldRef<"Post", 'DateTime'>
+    readonly endDate: FieldRef<"Post", 'DateTime'>
   }
     
 
@@ -6522,7 +6544,9 @@ export namespace Prisma {
     limit: 'limit',
     isLimit: 'isLimit',
     startPostBkk: 'startPostBkk',
-    endPostBkk: 'endPostBkk'
+    endPostBkk: 'endPostBkk',
+    startDate: 'startDate',
+    endDate: 'endDate'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -6747,6 +6771,8 @@ export namespace Prisma {
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
+    startDate?: DateTimeNullableFilter<"Post"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Post"> | Date | string | null
     PostHistory?: PostHistoryListRelationFilter
     Image?: ImageListRelationFilter
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
@@ -6771,6 +6797,8 @@ export namespace Prisma {
     isLimit?: SortOrder
     startPostBkk?: SortOrderInput | SortOrder
     endPostBkk?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
     PostHistory?: PostHistoryOrderByRelationAggregateInput
     Image?: ImageOrderByRelationAggregateInput
     Account?: AccountOrderByWithRelationInput
@@ -6798,6 +6826,8 @@ export namespace Prisma {
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
+    startDate?: DateTimeNullableFilter<"Post"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Post"> | Date | string | null
     PostHistory?: PostHistoryListRelationFilter
     Image?: ImageListRelationFilter
     Account?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
@@ -6822,6 +6852,8 @@ export namespace Prisma {
     isLimit?: SortOrder
     startPostBkk?: SortOrderInput | SortOrder
     endPostBkk?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -6851,6 +6883,8 @@ export namespace Prisma {
     isLimit?: BoolWithAggregatesFilter<"Post"> | boolean
     startPostBkk?: IntNullableWithAggregatesFilter<"Post"> | number | null
     endPostBkk?: IntNullableWithAggregatesFilter<"Post"> | number | null
+    startDate?: DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
   }
 
   export type PostHistoryWhereInput = {
@@ -7179,6 +7213,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryCreateNestedManyWithoutPostInput
     Image?: ImageCreateNestedManyWithoutPostInput
     Account?: AccountCreateNestedOneWithoutPostInput
@@ -7203,6 +7239,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutPostInput
     Image?: ImageUncheckedCreateNestedManyWithoutPostInput
   }
@@ -7225,6 +7263,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUpdateManyWithoutPostNestedInput
     Image?: ImageUpdateManyWithoutPostNestedInput
     Account?: AccountUpdateOneWithoutPostNestedInput
@@ -7249,6 +7289,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
     Image?: ImageUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -7272,6 +7314,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
   }
 
   export type PostUpdateManyMutationInput = {
@@ -7292,6 +7336,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PostUncheckedUpdateManyInput = {
@@ -7313,6 +7359,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PostHistoryCreateInput = {
@@ -7695,6 +7743,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type ImageListRelationFilter = {
     every?: ImageWhereInput
     some?: ImageWhereInput
@@ -7729,6 +7788,8 @@ export namespace Prisma {
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
@@ -7757,6 +7818,8 @@ export namespace Prisma {
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -7778,6 +7841,8 @@ export namespace Prisma {
     isLimit?: SortOrder
     startPostBkk?: SortOrder
     endPostBkk?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
@@ -7817,6 +7882,20 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PostNullableRelationFilter = {
@@ -8070,6 +8149,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type PostHistoryUpdateManyWithoutPostNestedInput = {
@@ -8362,6 +8445,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -8416,6 +8510,20 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type PostCreateWithoutAccountInput = {
     postId?: string
     name: string
@@ -8434,6 +8542,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryCreateNestedManyWithoutPostInput
     Image?: ImageCreateNestedManyWithoutPostInput
   }
@@ -8456,6 +8566,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutPostInput
     Image?: ImageUncheckedCreateNestedManyWithoutPostInput
   }
@@ -8542,6 +8654,8 @@ export namespace Prisma {
     isLimit?: BoolFilter<"Post"> | boolean
     startPostBkk?: IntNullableFilter<"Post"> | number | null
     endPostBkk?: IntNullableFilter<"Post"> | number | null
+    startDate?: DateTimeNullableFilter<"Post"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Post"> | Date | string | null
   }
 
   export type PostHistoryUpsertWithWhereUniqueWithoutAccountInput = {
@@ -8820,6 +8934,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     Image?: ImageCreateNestedManyWithoutPostInput
     Account?: AccountCreateNestedOneWithoutPostInput
   }
@@ -8843,6 +8959,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     Image?: ImageUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -8949,6 +9067,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Image?: ImageUpdateManyWithoutPostNestedInput
     Account?: AccountUpdateOneWithoutPostNestedInput
   }
@@ -8972,6 +9092,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Image?: ImageUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -9019,6 +9141,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryCreateNestedManyWithoutPostInput
     Account?: AccountCreateNestedOneWithoutPostInput
   }
@@ -9042,6 +9166,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
     PostHistory?: PostHistoryUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -9079,6 +9205,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUpdateManyWithoutPostNestedInput
     Account?: AccountUpdateOneWithoutPostNestedInput
   }
@@ -9102,6 +9230,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -9187,6 +9317,8 @@ export namespace Prisma {
     isLimit?: boolean
     startPostBkk?: number | null
     endPostBkk?: number | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
   }
 
   export type PostHistoryCreateManyAccountInput = {
@@ -9218,6 +9350,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUpdateManyWithoutPostNestedInput
     Image?: ImageUpdateManyWithoutPostNestedInput
   }
@@ -9240,6 +9374,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     PostHistory?: PostHistoryUncheckedUpdateManyWithoutPostNestedInput
     Image?: ImageUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -9262,6 +9398,8 @@ export namespace Prisma {
     isLimit?: BoolFieldUpdateOperationsInput | boolean
     startPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
     endPostBkk?: NullableIntFieldUpdateOperationsInput | number | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PostHistoryUpdateWithoutAccountInput = {

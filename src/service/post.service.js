@@ -4,18 +4,30 @@ const { generateToken, sha512 } = require('../utils/crypto.utils.js');
 const { signAccessToken } = require('../utils/jwt.utils.js');
 const { randomUUID } = require('crypto');
 const { type } = require('os');
+const { NowBkk, FormatDateTime } = require('../constants/DateUtil.js');
 
 async function getPost(accountId, postId, size, page, keyword) {
     
     try {
         const limit = +(size);
         const offset = +(limit * ((page || 1) - 1));
-    
+        
+        const currentDateTime = NowBkk();
+
         const conditions = {};
         conditions.isDelete = false;
 
         if (accountId) {
             conditions.accountId = accountId;
+        }
+        else {
+            conditions.startDate = {
+                lte: currentDateTime
+            }
+
+            conditions.endDate = {
+                gte: currentDateTime
+            }
         }
 
         if (postId) {
@@ -97,6 +109,12 @@ async function createPost(accountId, dto) {
             isLimit: dto.isLimit
         };
 
+        const startDate = FormatDateTime(payload.startDateBkk, payload.startTimeBkk);
+        const endDate = FormatDateTime(payload.endDateBkk, payload.endTimeBkk);
+
+        payload.startDate = startDate;
+        payload.endDate = endDate;
+
         const imagePayload = [];
 
         for(let i=0; i < dto.images.length; i++ ) {
@@ -150,7 +168,16 @@ async function updatePost(accountId, postId, dto) {
             startTimeBkk: dto.startTimeBkk,
             endDateBkk: dto.endDateBkk,
             endTimeBkk: dto.endTimeBkk,
+            type: dto.type,
+            limit: dto.limit,
+            isLimit: dto.isLimit
         };
+
+        const startDate = FormatDateTime(payload.startDateBkk, payload.startTimeBkk);
+        const endDate = FormatDateTime(payload.endDateBkk, payload.endTimeBkk);
+
+        payload.startDate = startDate;
+        payload.endDate = endDate;
 
         const imagePayload = [];
 
