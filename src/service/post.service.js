@@ -5,6 +5,7 @@ const { signAccessToken } = require('../utils/jwt.utils.js');
 const { randomUUID } = require('crypto');
 const { type } = require('os');
 const { NowBkk, FormatDateTime } = require('../constants/DateUtil.js');
+const { Status } = require('../constants/status.js');
 
 async function getPost(accountId, postId, size, page, keyword) {
     
@@ -57,9 +58,9 @@ async function getPost(accountId, postId, size, page, keyword) {
                     select: {
                         PostHistory: {
                             where: {
-                                isActive: true
+                                status: Status.accept
                             }
-                        }
+                        },
                     }
                 }
             },
@@ -68,6 +69,48 @@ async function getPost(accountId, postId, size, page, keyword) {
             orderBy: {
                 createdAt: 'desc'
             },
+        })
+
+        const count1 = await readClient.post.findMany({
+            where: conditions,
+            include: {
+                _count: {
+                    select: {
+                        PostHistory: {
+                            where: {
+                                status: Status.accept
+                            }
+                        },
+                    }
+                }
+            }
+        })
+
+        const count2 = await readClient.post.findMany({
+            where: conditions,
+            include: {
+                _count: {
+                    select: {
+                        PostHistory: {
+                            where: {
+                                status: Status.pending
+                            }
+                        },
+                    }
+                }
+            }
+        })
+
+        posts.forEach(e => {
+            let item1 = count1.find(x => x.postId == e.postId)
+            if (item1) {
+                e.acceptCount = item1._count.PostHistory
+            }
+
+            let item2 = count1.find(x => x.postId == e.postId)
+            if (item2) {
+                e.pendingCount = item2._count.PostHistory
+            }
         })
 
         const count = await readClient.post.count({
