@@ -167,7 +167,7 @@ async function UpdatePostSignUpManageById(postHistoryId) {
                 postHistoryId: postHistoryId,
             },
             data: {
-                isActive: isActive,
+                // isActive: isActive,
                 status: Status.complete
             }
         })

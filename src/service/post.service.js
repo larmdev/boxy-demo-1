@@ -22,9 +22,9 @@ async function getPost(accountId, postId, size, page, keyword) {
             conditions.accountId = accountId;
         }
         else {
-            conditions.startDate = {
-                lte: currentDateTime
-            }
+            // conditions.startDate = {
+            //     lte: currentDateTime
+            // }
 
             conditions.endDate = {
                 gte: currentDateTime
@@ -101,15 +101,35 @@ async function getPost(accountId, postId, size, page, keyword) {
             }
         })
 
+        const count3 = await readClient.post.findMany({
+            where: conditions,
+            include: {
+                _count: {
+                    select: {
+                        PostHistory: {
+                            where: {
+                                status: Status.complete
+                            }
+                        },
+                    }
+                }
+            }
+        })
+
         posts.forEach(e => {
             let item1 = count1.find(x => x.postId == e.postId)
             if (item1) {
                 e.acceptCount = item1._count.PostHistory
             }
 
-            let item2 = count1.find(x => x.postId == e.postId)
+            let item2 = count2.find(x => x.postId == e.postId)
             if (item2) {
                 e.pendingCount = item2._count.PostHistory
+            }
+
+            let item3 = count3.find(x => x.postId == e.postId)
+            if (item3) {
+                e.completeCount = item3._count.PostHistory
             }
         })
 

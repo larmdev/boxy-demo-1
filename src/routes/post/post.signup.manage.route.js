@@ -36,7 +36,7 @@ router.post('/:postHistoryId', VerifyToken, async (req, res) => {
 
 // 
 router.get('/get-post-history-by-id/:postHistoryId', VerifyToken, async (req, res) => {
-    const postId = req.query.postId;
+    const postHistoryId = req.params.postHistoryId;
     var accountId = null;
     if (req.context.account.role == "1") {
         accountId = req.context.accountId;
@@ -46,7 +46,7 @@ router.get('/get-post-history-by-id/:postHistoryId', VerifyToken, async (req, re
 });
 
 router.put('/update-post-history-by-id/:postHistoryId', VerifyToken, async (req, res) => {
-    const postId = req.query.postId;
+    const postHistoryId = req.params.postHistoryId;
     var accountId = null;
     if (req.context.account.role == "1") {
         accountId = req.context.accountId;

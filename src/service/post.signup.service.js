@@ -101,26 +101,26 @@ async function createPostSignUp(accountId, postId) {
         }
 
         // เช็คช่วงเวลาที่สมัครซ้ำกัน
-        const postHistory = await readClient.post.findFirst({
-            where: {
-                startDate: {
-                    lte: postLimit.startDate
-                },
-                endDate: {
-                    gle: postLimit.startDate
-                },
-                postHistory: {
-                    accountId: accountId
-                }
-            }
-        })
+        // const postHistory = await readClient.post.findFirst({
+        //     where: {
+        //         startDate: {
+        //             lte: postLimit.startDate
+        //         },
+        //         endDate: {
+        //             gle: postLimit.startDate
+        //         },
+        //         postHistory: {
+        //             accountId: accountId
+        //         }
+        //     }
+        // })
 
-        if (postHistory) {
-            return {
-                code: Response.BadRequest.code,
-                message: `ไม่สามารถสมัครกิจกรรมได้ เนื่องจากสมัครกิจกรรมอื่นแล้ว ${postHistory.name}`
-            }
-        }
+        // if (postHistory) {
+        //     return {
+        //         code: Response.BadRequest.code,
+        //         message: `ไม่สามารถสมัครกิจกรรมได้ เนื่องจากสมัครกิจกรรมอื่นแล้ว ${postHistory.name}`
+        //     }
+        // }
 
         const created = await readClient.postHistory.create({
             data: payload
