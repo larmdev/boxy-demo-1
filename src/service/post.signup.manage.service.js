@@ -114,11 +114,6 @@ async function getPostSignUpManageById(postHistoryId) {
 
         const posts = await readClient.postHistory.findFirst({
             where: conditions,
-            skip: offset,
-			take: limit,
-            orderBy: {
-                createdAt: 'asc'
-            },
             include: {
                 Account: {
                     select: {

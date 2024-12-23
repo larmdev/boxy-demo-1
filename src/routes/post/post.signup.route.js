@@ -14,7 +14,7 @@ router.get('/', VerifyToken, async (req, res) => {
 });
 
 router.get('/:postHistoryId', VerifyToken, async (req, res) => {
-    const accountId = req.context.accountId;
+    const postHistoryId = req.params.postHistoryId;
     const result = await postSignUpServices.getPostSignUpHistoryById(postHistoryId);
     return res.json(result);
 });
