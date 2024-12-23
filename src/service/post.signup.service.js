@@ -93,7 +93,7 @@ async function createPostSignUp(accountId, postId) {
             where: { postId: postId }
         });
 
-        if (postLimit.isLimit && postLimit.limit < historyCount) {
+        if (postLimit.isLimit && historyCount >= postLimit.limit) {
             return {
                 code: Response.BadRequest.code,
                 message: "เกินจำนวนที่สมัคร"
